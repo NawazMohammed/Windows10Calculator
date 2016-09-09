@@ -1,0 +1,32 @@
+﻿namespace Calculator.Models
+{
+    public enum Command
+    {
+        ZERO,
+        ONE,
+        TWO,
+        THREE,
+        FOUR,
+       FIVE,
+       SIX,
+        SEVEN,
+        EIGHT,
+        NINE,
+        A,
+        B,
+        C,
+        D,
+        E,
+        F,
+        ROOT,
+        POWER,
+        PLUS,
+        MINUS,
+        MULTIPLY,
+        DIVIDE,
+        POINT,
+        EQUAL,
+        DELETE,
+        CLEAR,
+    }
+}

@@ -1,0 +1,169 @@
+﻿<Window x:Name="mainWindow" x:Class="Calculator.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calculator.UI"
+        mc:Ignorable="d"
+        Title="Calculator" Height="550" Width="550" FontSize="21.333" Background="#FFF9F7F7">
+
+    <Window.Resources>
+        <Style x:Key="TextBlockMouseOverStyle" TargetType="{x:Type TextBlock}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFB8B3B2" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="MemoryButtonMouseOverStyle" TargetType="{x:Type StackPanel}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFB8B3B2" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ButtonMouseOverStyle" TargetType="{x:Type Button}">
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFB8B3B2" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="#FFA29E9D" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="mainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="75*"/>
+            <ColumnDefinition Width="25*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="leftGrid" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="50*"/>
+            </Grid.RowDefinitions>
+            <Label x:Name="expressionTxtBx" Grid.Row="0" BorderThickness="0" HorizontalContentAlignment="Right"  FontSize="18"  Background="#FFF9F7F7" Content="{Binding Path=Expression, UpdateSourceTrigger=PropertyChanged}" />
+            <Label x:Name="resultTextBx" Grid.Row="1" BorderThickness="0" HorizontalContentAlignment="Right"   FontSize="36" FontWeight="Bold" Background="#FFF9F7F7" Content="{Binding Path=Result, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock x:Name="hexTextBlock"  Grid.Row="2" Style="{StaticResource TextBlockMouseOverStyle}" VerticalAlignment="Center" MouseDown="hexTextBlock_MouseDown">              
+                     <Label x:Name="hexLbl" Content="HEX" FontWeight="Bold" FontSize="18" />
+                     <Label x:Name="hexValue" FontSize="18" Content="{Binding Path=CalculatorOutputHex, UpdateSourceTrigger=PropertyChanged}" />
+            </TextBlock>
+            <TextBlock x:Name="decTextBlock" Grid.Row="3" Style="{StaticResource TextBlockMouseOverStyle}" VerticalAlignment="Center" MouseDown="decTextBlock_MouseDown">
+             <Label x:Name="decLbl" Content="DEC" FontWeight="Bold" FontSize="18" />
+            <Label x:Name="decValue" FontSize="18" Content="{Binding Path=CalculatorOutput, UpdateSourceTrigger=PropertyChanged}" />
+            </TextBlock>
+            <TextBlock x:Name="octTextBlock" Grid.Row="4" Style="{StaticResource TextBlockMouseOverStyle}" VerticalAlignment="Center" MouseDown="octTextBlock_MouseDown">
+             <Label x:Name="octLbl" Content="OCT" FontWeight="Bold" FontSize="18" />
+            <Label x:Name="octValue" FontSize="18" Content="{Binding Path=CalculatorOutputOct, UpdateSourceTrigger=PropertyChanged}" />
+            </TextBlock>
+            <TextBlock x:Name="binTextBlock" Grid.Row="5" Style="{StaticResource TextBlockMouseOverStyle}" VerticalAlignment="Center" MouseDown="binTextBlock_MouseDown">
+             <Label x:Name="binLbl" Content="BIN" FontWeight="Bold" FontSize="18" />
+            <Label x:Name="binValue" FontSize="18" Content="{Binding Path=CalculatorOutputBin, UpdateSourceTrigger=PropertyChanged}"/>
+            </TextBlock>
+
+            <Grid x:Name="controlsGrid" Grid.Row="6" Background="#FFE2E2E2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150*"/>
+                    <ColumnDefinition Width="150*"/>
+                    <ColumnDefinition Width="150*"/>
+                    <ColumnDefinition Width="150*"/>
+                    <ColumnDefinition Width="150*"/>
+                    <ColumnDefinition Width="150*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="20*"/>
+                </Grid.RowDefinitions>
+
+                <Button x:Name="buttonPower" Content="xⁿ" Grid.Row="0" Grid.Column="0"  BorderThickness="0"  FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}" />
+                <Button x:Name="buttonRoot" Content="nth root" Grid.Row="0" Grid.Column="1"  BorderThickness="0"  FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}" Grid.ColumnSpan="3" Margin="0,0,62,0"/>
+                <Button x:Name="buttonClear" Content="C" Grid.Row="0" Grid.Column="3" BorderThickness="0"  FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}"/>
+                <Button x:Name="buttonDelete" Content="☒" Grid.Row="0" Grid.Column="4"  BorderThickness="0"   FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}"/>
+                <Button x:Name="buttonDivide" Content="÷" Grid.Row="0" Grid.Column="5" BorderThickness="0"   FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}"/>
+
+
+                <Button x:Name="buttonA" Content="A" Grid.Row="1" Grid.Column="0" BorderThickness="0"  FontSize="18" FontWeight="Bold"  Style="{StaticResource ButtonMouseOverStyle}"/>
+                <Button x:Name="buttonB" Content="B" Grid.Row="1" Grid.Column="1" BorderThickness="0"  FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}" />
+                <Button x:Name="button7" Content="7" Grid.Row="1" Grid.Column="2" BorderThickness="0"  FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}"/>
+                <Button x:Name="button8" Content="8" Grid.Row="1" Grid.Column="3" BorderThickness="0"  FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}" />
+                <Button x:Name="button9" Content="9" Grid.Row="1" Grid.Column="4" BorderThickness="0"  FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}" />
+                <Button x:Name="buttonMultiply" Content="x" Grid.Row="1" Grid.Column="5" BorderThickness="0"  FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}"/>
+
+                <Button x:Name="buttonC" Content="C" Grid.Row="2" Grid.Column="0" BorderThickness="0"  FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}"/>
+                <Button x:Name="buttonD" Content="D" Grid.Row="2" Grid.Column="1" BorderThickness="0"  FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}"/>
+                <Button x:Name="button4" Content="4" Grid.Row="2" Grid.Column="2" BorderThickness="0"  FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}"/>
+                <Button x:Name="button5" Content="5" Grid.Row="2" Grid.Column="3" BorderThickness="0"   FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}"/>
+                <Button x:Name="button6" Content="6" Grid.Row="2" Grid.Column="4" BorderThickness="0"   FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}"/>
+                <Button x:Name="buttonMinus" Content="-" Grid.Row="2" Grid.Column="5"  BorderThickness="0"   FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}"/>
+
+                <Button x:Name="buttonE" Content="E" Grid.Row="3" Grid.Column="0" BorderThickness="0"  FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}"/>
+                <Button x:Name="buttonF" Content="F" Grid.Row="3" Grid.Column="1" BorderThickness="0"  FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}"/>
+                <Button x:Name="button1" Content="1" Grid.Row="3" Grid.Column="2" BorderThickness="0"  FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}"/>
+                <Button x:Name="button2" Content="2" Grid.Row="3" Grid.Column="3" BorderThickness="0"  FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}" />
+                <Button x:Name="button3" Content="3" Grid.Row="3" Grid.Column="4" BorderThickness="0"   FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}" />
+                <Button x:Name="buttonPlus" Content="+" Grid.Row="3" Grid.Column="5" BorderThickness="0"   FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}"/>
+
+                <Button x:Name="button0" Content="0" Grid.Row="3" BorderThickness="0"   FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}" Grid.ColumnSpan="2" Margin="-5,50,2,2" Grid.RowSpan="2" />
+                <Button x:Name="buttonPoint" Content="." Grid.Row="3" Grid.Column="2" BorderThickness="0"  FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}" Grid.ColumnSpan="3" Margin="3,50,66,2" Grid.RowSpan="2"/>
+                <Button x:Name="buttonEquals" Content="=" Grid.Row="4" Grid.Column="4" BorderThickness="0"   FontSize="18" FontWeight="Bold" Style="{StaticResource ButtonMouseOverStyle}" Grid.ColumnSpan="2" Margin="3,0,0,0" />
+
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="rightGrid" Grid.Column="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="90*"/>
+            </Grid.RowDefinitions>
+            <Label  x:Name="memoryLbl" Grid.Row="0" Content="Memory" FontWeight="Bold" />
+            <StackPanel x:Name="expressionsPanel" Grid.Row="1" CanVerticallyScroll="True">
+                <ItemsControl x:Name="expressionsItemsControl" ItemsSource="{Binding Expressions, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl.Template>
+                        <ControlTemplate>
+                            <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}">
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource ButtonMouseOverStyle}" Command="{Binding Path=DataContext.ExpressionClickCommand }" CommandParameter="{Binding ElementName=ID,Path=DataContext}">
+                                <StackPanel>
+                                    <Label  FontSize="18" Content="{Binding Path=StringFormatted}" HorizontalAlignment="Right"   />
+                                    <Label  FontWeight="Bold" FontSize="18" Content="{Binding Path=ResultFormatted}" HorizontalAlignment="Right" />
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Grid>
+    </Grid>
+
+</Window>
