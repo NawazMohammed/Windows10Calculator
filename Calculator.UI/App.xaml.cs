@@ -6,8 +6,6 @@ using System.Windows;
 
 namespace Calculator.UI
 {
-    using Calculator.Contracts.ServiceContracts;
-
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>

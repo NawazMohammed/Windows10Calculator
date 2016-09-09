@@ -17,7 +17,7 @@
         }
 
         [Test]
-        public void OnStartUpDisplayIsZeroAndExpressionStringIsEmpty()
+        public void OnStartUpDisplayIsZeroAndExpressionStringIsEmptyAndModeIsDecimal()
         {
             //Arrange 
             //(see setup)
@@ -25,6 +25,7 @@
             //Assert
             Assert.That(calculatorService.Expression.Display, Is.EqualTo("0"));
             Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo(""));
+            Assert.That(calculatorService.CurrentMode, Is.EqualTo(Mode.DEC));
         }
 
         [Test]
@@ -107,6 +108,19 @@
         }
 
         [Test]
+        public void WhenDisplayIsAtSomeNumberAndAOperatorIsPressedAndADifferentOperatorIsPressedThenExpressionStringIsUpdated()
+        {
+            //Arrange
+            calculatorService.OnNumericCommand(Command.TWO);
+            calculatorService.OnOperatorCommand(Command.PLUS);
+            //Act
+            calculatorService.OnOperatorCommand(Command.MINUS);
+
+            //Assert
+            Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo("2 -"));
+        }
+
+        [Test]
         public void WhenAOperationExistsAndAOperatorIsPressedThenExpressionIsExecuted()
         {
             //Arrange
@@ -125,6 +139,26 @@
         }
 
         [Test]
+        public void WhenAOperationExistsAndTwoDifferentOperatorArePressedThenLastOperatorIsConsidered()
+        {
+            //Arrange
+            calculatorService = new CalculatorService();
+            calculatorService.OnNumericCommand(Command.TWO);
+            calculatorService.OnOperatorCommand(Command.PLUS);
+            calculatorService.OnNumericCommand(Command.THREE);
+
+
+            //Act
+            calculatorService.OnOperatorCommand(Command.PLUS);
+            calculatorService.OnOperatorCommand(Command.MINUS);
+
+            //Assert
+            Assert.That(calculatorService.Expression.Display, Is.EqualTo("5"));
+            Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo("2 + 3 -"));
+
+        }
+
+        [Test]
         public void WhenAOperationExistsAndEqualsIsPressedThenExpressionIsExecuted()
         {
             //Arrange
@@ -138,6 +172,24 @@
 
             //Assert
             Assert.That(calculatorService.Expression.Display, Is.EqualTo("5"));
+            Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo(""));
+        }
+
+        [Test]
+        public void WhenEqualsIsExecutedAndANewNumberIsPressedThenDisplayShouleBeNewNumber()
+        {
+            //Arrange
+            calculatorService = new CalculatorService();
+            calculatorService.OnNumericCommand(Command.TWO);
+            calculatorService.OnOperatorCommand(Command.PLUS);
+            calculatorService.OnNumericCommand(Command.THREE);
+            calculatorService.OnControlCommand(Command.EQUAL);
+
+            //Act
+            calculatorService.OnNumericCommand(Command.THREE);
+
+            //Assert
+            Assert.That(calculatorService.Expression.Display, Is.EqualTo("3"));
             Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo(""));
         }
 

@@ -33,9 +33,6 @@ namespace Calculator.Models
 
         public void Execute(INumber total)
         {
-            if (Operator == null || Number == null)
-                throw new ArgumentNullException();
-
             var result = Operator.Execute(total.ToDecimal(), Number.ToDecimal());
 
             total.SetValue(result);

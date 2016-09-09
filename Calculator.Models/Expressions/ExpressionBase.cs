@@ -1,6 +1,5 @@
 ﻿using Calculator.Models.Operators;
 using System.Collections.Generic;
-using System;
 
 namespace Calculator.Models
 {
@@ -16,7 +15,7 @@ namespace Calculator.Models
         public string ExpressionString => ToDisplayString();
 
 
-        private readonly List<Operation> operations = new List<Operation>();
+        private List<Operation> operations = new List<Operation>();
 
         protected ExpressionBase(int id, INumber initialValue)
         {
@@ -91,10 +90,19 @@ namespace Calculator.Models
         }
         public void Execute()
         {
+            if (CurrentOperation.Operator == null || CurrentOperation.Number == null)
+                return;
+
             CurrentOperation.Execute(executedValue);
             Display = executedValue.ToDisplayString();
             operations.Add(CurrentOperation);
             
+        }
+
+        public void Reset(INumber initialValue)
+        {
+            operations = new List<Operation>();
+            CurrentOperation = new Operation(initialValue, new NullOperator());
         }
     }
 

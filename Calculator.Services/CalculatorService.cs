@@ -83,7 +83,7 @@ namespace Calculator.Services
                     Expression.Execute();
                     Expression.Complete();
                     Expressions.Add(Expression);
-                    Expression = new DecimalExpression(ExpressionId, new Dec(Expression.Display));
+                    Expression.Reset(new Dec(0));
                     break;
                 case Command.CLEAR:
                     Expression = new DecimalExpression(ExpressionId, new Dec(0));
