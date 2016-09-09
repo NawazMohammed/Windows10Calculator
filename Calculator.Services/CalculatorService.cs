@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using Calculator.Models;
 using Calculator.Contracts.ServiceContracts;
+using Calculator.Models.Expressions;
 
 namespace Calculator.Services
 {
-    using System;
-
-    using Calculator.Models.Expressions;
-    using Calculator.Models.Operators;
+  
 
     public class CalculatorService : ICalculatorService
     {
@@ -17,7 +15,7 @@ namespace Calculator.Services
         private int expressionId;
         public CalculatorService()
         {
-            this.serviceFactory = serviceFactory;
+            serviceFactory = serviceFactory;
             CurrentMode = Mode.DEC;
             Expressions = new List<ExpressionBase>();
         }
@@ -88,7 +86,7 @@ namespace Calculator.Services
                     Expression = new DecimalExpression(ExpressionId, new Dec(Expression.Display));
                     break;
                 case Command.CLEAR:
-                    Expression.Reset();
+                    Expression = new DecimalExpression(ExpressionId, new Dec(0));
                     break;
             }
         }

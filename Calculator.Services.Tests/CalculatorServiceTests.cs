@@ -79,6 +79,21 @@
         }
 
         [Test]
+        public void WhenDisplayIsAtSomeNumberAndADeleteIsPressedThenDisplayIsUpdated()
+        {
+            //Arrange 
+            calculatorService.OnNumericCommand(Command.TWO);
+            calculatorService.OnNumericCommand(Command.THREE);
+            calculatorService.OnNumericCommand(Command.FIVE);
+
+            //Act
+            calculatorService.OnControlCommand(Command.DELETE);
+
+            //Assert
+            Assert.That(calculatorService.Expression.Display, Is.EqualTo("23"));
+        }
+
+        [Test]
         public void WhenDisplayIsAtSomeNumberAndAOperatorIsPressedThenExpressionStringIsUpdated()
         {
             //Arrange
@@ -155,6 +170,23 @@
             calculatorService.OnControlCommand(Command.EQUAL);
 
             //Assert
+            Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo(""));
+        }
+
+        [Test]
+        public void WhenAOperationExistsAndClearIsPressedThenTheExpressionIsCleared()
+        {
+            //Arrange
+            calculatorService = new CalculatorService();
+            calculatorService.OnNumericCommand(Command.TWO);
+            calculatorService.OnOperatorCommand(Command.PLUS);
+            calculatorService.OnNumericCommand(Command.THREE);
+
+            //Act
+            calculatorService.OnControlCommand(Command.CLEAR);
+
+            //Assert
+            Assert.That(calculatorService.Expression.Display, Is.EqualTo("0"));
             Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo(""));
         }
     }

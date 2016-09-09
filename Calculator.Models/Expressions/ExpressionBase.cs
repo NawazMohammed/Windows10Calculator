@@ -87,6 +87,7 @@ namespace Calculator.Models
                 display = "0";
 
             CurrentOperation.Number = GetNumber(display);
+            Display = CurrentOperation.Number.ToDisplayString();
         }
         public void Execute()
         {
@@ -95,12 +96,6 @@ namespace Calculator.Models
             operations.Add(CurrentOperation);
             
         }
-        public void Reset()
-        {
-            
-        }
-
-      
     }
 
 
