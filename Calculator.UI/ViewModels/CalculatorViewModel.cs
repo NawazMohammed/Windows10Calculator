@@ -24,8 +24,6 @@ namespace Calculator.UI.ViewModels
         {
             this.calculatorService = calculatorService;
         }
-
-        public string DisplayExpression { get; set; }
         
         public ICommand ClickCommand
         {
@@ -66,27 +64,6 @@ namespace Calculator.UI.ViewModels
             Result = calculatorService.Expression.Display;
         }
 
-        public void OnExpressionClick(object id)
-        {
-            var expressionId = Convert.ToInt32(id);
-            //_calculatorService.HandleCommand(com);
-            //CalculatorOutput = _calculatorService.DisplayResult;
-            //CalculatorOutputBin = _calculatorService.GetResultInFormat(Mode.BIN);
-            //CalculatorOutputHex = _calculatorService.GetResultInFormat(Mode.HEX);
-            //CalculatorOutputOct = _calculatorService.GetResultInFormat(Mode.OCT);
-
-            //CurrentExpression = _calculatorService.DisplayExpression;
-
-            //if (Expressions == null)
-            //    Expressions = new ObservableCollection<Expression>();
-            //Expressions.Clear();
-            //foreach (var expression in _calculatorService.Expressions)
-            //{
-            //    Expressions.Add(expression);
-            //}
-            //NotifyPropertyChanged("Expressions");
-        }
-
         public void OnOperationCommandClick(object command)
         {
             var com = command.ToEnum<Command>();
@@ -112,6 +89,31 @@ namespace Calculator.UI.ViewModels
             NotifyPropertyChanged("Expressions");
 
         }
+
+        public void OnExpressionClick(object id)
+        {
+            var expressionId = Convert.ToInt32(id);
+            //_calculatorService.HandleCommand(com);
+            //CalculatorOutput = _calculatorService.DisplayResult;
+            //CalculatorOutputBin = _calculatorService.GetResultInFormat(Mode.BIN);
+            //CalculatorOutputHex = _calculatorService.GetResultInFormat(Mode.HEX);
+            //CalculatorOutputOct = _calculatorService.GetResultInFormat(Mode.OCT);
+
+            //CurrentExpression = _calculatorService.DisplayExpression;
+
+            //if (Expressions == null)
+            //    Expressions = new ObservableCollection<Expression>();
+            //Expressions.Clear();
+            //foreach (var expression in _calculatorService.Expressions)
+            //{
+            //    Expressions.Add(expression);
+            //}
+            //NotifyPropertyChanged("Expressions");
+        }
+
+       
+
+       
 
  
      

@@ -22,6 +22,16 @@ namespace Calculator.Models
             value = Convert.ToInt32(val);
         }
 
+        public override void SetValue(string val)
+        {
+            value = Convert.ToInt32(val, 8);
+        }
+
+        public override void AddCharacter(char car)
+        {
+            throw new NotImplementedException();
+        }
+
         public Octal(string b)
         {
             value = Convert.ToInt32(b, 8);
@@ -29,7 +39,7 @@ namespace Calculator.Models
 
         public override decimal ToDecimal()
         {
-            return Convert.ToDecimal(this.value);
+            return Convert.ToDecimal(value);
         }
 
         public override string ToDisplayString()

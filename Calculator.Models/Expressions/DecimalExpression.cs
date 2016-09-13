@@ -6,8 +6,8 @@ namespace Calculator.Models.Expressions
 
     public class DecimalExpression : ExpressionBase
     {
-        public DecimalExpression(int id, INumber initialValue)
-            : base(id,initialValue)
+        public DecimalExpression(int id, INumber defaultNumber, INumber defaultValue)
+            : base(id, defaultNumber,defaultValue)
         { }
 
         protected override INumber GetNumber(string value)
@@ -24,7 +24,7 @@ namespace Calculator.Models.Expressions
         protected override void UpdateDisplay(char character)
         {
             var display = "";
-            if (CurrentOperation.Number != null) display = CurrentOperation.Number.ToDisplayString();
+            if (CurrentOperation.RhsNumber != null) display = CurrentOperation.RhsNumber.ToDisplayString();
 
             if (display.Length > 16)
                 return;
@@ -39,7 +39,7 @@ namespace Calculator.Models.Expressions
             display = display + character;
 
             var updatedNumber = GetNumber(display);
-            CurrentOperation.Number = updatedNumber;
+            CurrentOperation.RhsNumber = updatedNumber;
             
         }
 

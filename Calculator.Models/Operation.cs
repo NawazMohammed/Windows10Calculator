@@ -6,18 +6,14 @@ namespace Calculator.Models
 
     public class Operation
     {
-        public INumber Number { get; set; }
-        public IOperator Operator { get; }
+        public INumber RhsNumber { get; set; }
+        public IOperator Operator { get; set; }
+        public INumber LhsNumber { get; }
 
-        public Operation(IOperator opr)
+        public Operation(INumber lhsNumber , IOperator opr)
         {
             Operator = opr;
-        }
-
-        public Operation(INumber number, IOperator opr)
-        {
-            Number = number;
-            Operator = opr;
+            LhsNumber = lhsNumber;
         }
 
         public string ToDisplayString()
@@ -25,17 +21,17 @@ namespace Calculator.Models
             var str = "";
             if (Operator != null)
                 str = Operator.ToDisplayString();
-            if (Number != null)
-                str = str + " " + Number.ToDisplayString();
+            if (RhsNumber != null)
+                str = str + " " + RhsNumber.ToDisplayString();
 
             return str;
         }
 
-        public void Execute(INumber total)
+        public INumber Execute(Func<decimal,INumber> convertToNumberFunc)
         {
-            var result = Operator.Execute(total.ToDecimal(), Number.ToDecimal());
+            var result = Operator.Execute(LhsNumber.ToDecimal(), RhsNumber.ToDecimal());
 
-            total.SetValue(result);
+            return convertToNumberFunc(result);
         }
 
       

@@ -155,8 +155,8 @@
                         <DataTemplate>
                             <Button Style="{StaticResource ButtonMouseOverStyle}" Command="{Binding Path=DataContext.ExpressionClickCommand }" CommandParameter="{Binding ElementName=ID,Path=DataContext}">
                                 <StackPanel>
-                                    <Label  FontSize="18" Content="{Binding Path=StringFormatted}" HorizontalAlignment="Right"   />
-                                    <Label  FontWeight="Bold" FontSize="18" Content="{Binding Path=ResultFormatted}" HorizontalAlignment="Right" />
+                                    <Label  FontSize="18" Content="{Binding Path=ExpressionString}" HorizontalAlignment="Right"   />
+                                    <Label  FontWeight="Bold" FontSize="18" Content="{Binding Path=Display}" HorizontalAlignment="Right" />
                                 </StackPanel>
                             </Button>
                         </DataTemplate>

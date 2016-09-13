@@ -38,7 +38,7 @@ namespace Calculator.Services
             {
                 currrentMode = value;
 
-                Expression = new DecimalExpression(ExpressionId, new Dec(0));
+                Expression = new DecimalExpression(ExpressionId, new Dec(0), new Dec(0));
             }
         }
         public List<ExpressionBase> Expressions { get; }
@@ -66,7 +66,7 @@ namespace Calculator.Services
         }
         public void OnOperatorCommand(Command command)
         {
-            Expression.Execute();
+            Expression.ExecutePreviousOperation();
             Expression.StartNewOperation(command);
         }
         public void OnControlCommand(Command command)
@@ -80,13 +80,13 @@ namespace Calculator.Services
                     Expression.DeleteLastCharacter();
                     break;
                 case Command.EQUAL:
-                    Expression.Execute();
+                    Expression.ExecutePreviousOperation();
                     Expression.Complete();
                     Expressions.Add(Expression);
-                    Expression.Reset(new Dec(0));
+                    Expression = new DecimalExpression(ExpressionId, new Dec(0), new Dec(Expression.Display));
                     break;
                 case Command.CLEAR:
-                    Expression = new DecimalExpression(ExpressionId, new Dec(0));
+                    Expression = new DecimalExpression(ExpressionId, new Dec(0), new Dec(0));
                     break;
             }
         }

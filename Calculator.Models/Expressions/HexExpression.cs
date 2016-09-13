@@ -7,7 +7,7 @@ namespace Calculator.Models.Expressions
     public class HexExpression : ExpressionBase
     {
         public HexExpression(int id)
-            : base(id, new Hex(0))
+            : base(id, new Hex(0), new Hex(0))
         { }
 
         protected override INumber GetNumber(string value)
@@ -61,7 +61,7 @@ namespace Calculator.Models.Expressions
         }
         protected override void UpdateDisplay(char character)
         {
-            var display = CurrentOperation.Number.ToDisplayString();
+            var display = CurrentOperation.RhsNumber.ToDisplayString();
             if (display.Length > 64)
                 return;
 
@@ -73,7 +73,7 @@ namespace Calculator.Models.Expressions
 
             display = display + character;
 
-            CurrentOperation.Number = GetNumber(display);
+            CurrentOperation.RhsNumber = GetNumber(display);
 
         }
         protected override bool IsValidOperatorCommand(Command command)

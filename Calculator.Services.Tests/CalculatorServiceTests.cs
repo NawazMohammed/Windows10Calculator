@@ -1,5 +1,7 @@
 ﻿namespace Calculator.Services.Tests
 {
+    using System.Linq;
+
     using Contracts;
     using Models;
     using NUnit.Framework;
@@ -159,7 +161,7 @@
         }
 
         [Test]
-        public void WhenAOperationExistsAndEqualsIsPressedThenExpressionIsExecuted()
+        public void WhenAOperationExistsAndEqualsIsPressedThenNewExpressionIsStartedWithTotal()
         {
             //Arrange
             calculatorService = new CalculatorService();
@@ -176,7 +178,7 @@
         }
 
         [Test]
-        public void WhenEqualsIsExecutedAndANewNumberIsPressedThenDisplayShouleBeNewNumber()
+        public void WhenEqualsIsExecutedAndANewNumberIsPressedThenDisplayShouldBeNewNumber()
         {
             //Arrange
             calculatorService = new CalculatorService();
@@ -207,6 +209,24 @@
 
             //Assert
             Assert.That(calculatorService.Expressions.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void WhenAnExpressionIsSelectedItsPressedThenExpressionsListIsUpdated()
+        {
+            //Arrange
+            calculatorService = new CalculatorService();
+            calculatorService.OnNumericCommand(Command.TWO);
+            calculatorService.OnOperatorCommand(Command.PLUS);
+            calculatorService.OnNumericCommand(Command.THREE);
+            calculatorService.OnControlCommand(Command.EQUAL);
+
+            //Act
+            var expre = calculatorService.Expressions.First();
+
+            //Assert
+            Assert.That(expre.Display, Is.EqualTo("5"));
+            Assert.That(expre.ExpressionString, Is.EqualTo("2 + 3 ="));
         }
 
         [Test]

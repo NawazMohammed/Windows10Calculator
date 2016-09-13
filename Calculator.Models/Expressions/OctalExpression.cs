@@ -6,7 +6,7 @@ namespace Calculator.Models.Expressions
     public class OctalExpression : ExpressionBase
     {
         public OctalExpression(int id)
-            : base(id, new Octal(0))
+            : base(id, new Octal(0), new Octal(0))
         { }
 
         protected override INumber GetNumber(string value)
@@ -60,7 +60,7 @@ namespace Calculator.Models.Expressions
         }
         protected override void UpdateDisplay(char character)
         {
-            var display = CurrentOperation.Number.ToDisplayString();
+            var display = CurrentOperation.RhsNumber.ToDisplayString();
             if (display.Length > 64)
                 return;
 
@@ -72,7 +72,7 @@ namespace Calculator.Models.Expressions
 
             display = display + character;
 
-            CurrentOperation.Number = GetNumber(display);
+            CurrentOperation.RhsNumber = GetNumber(display);
 
         }
         protected override bool IsValidOperatorCommand(Command command)

@@ -18,7 +18,17 @@ namespace Calculator.Models
 
         public override void SetValue(decimal val)
         {
-            this.value = Convert.ToInt32(value);
+            value = Convert.ToInt32(value);
+        }
+
+        public override void SetValue(string val)
+        {
+            value = Convert.ToInt32(val, 2);
+        }
+
+        public override void AddCharacter(char car)
+        {
+            throw new NotImplementedException();
         }
 
         public override  decimal ToDecimal()
@@ -39,6 +49,12 @@ namespace Calculator.Models
         string ToDisplayString();
 
         void SetValue(decimal val);
+
+        void SetValue(string val);
+
+        void AddCharacter(char car);
+
+        void DeleteLastCharacter();
 
     }
 

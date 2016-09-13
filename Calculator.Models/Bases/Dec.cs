@@ -13,14 +13,44 @@ namespace Calculator.Models
             this.value = value;
         }
 
-        public Dec(string b)
+        public Dec(string val)
         {
-            value = Convert.ToDecimal(b);
+            value = Convert.ToDecimal(val);
         }
 
         public override void SetValue(decimal val)
         {
             value = val;
+        }
+
+        public override void SetValue(string val)
+        {
+            value = Convert.ToDecimal(val);
+        }
+
+        public override void AddCharacter(char character)
+        {
+            var display = ToDisplayString();
+
+            if (display.Length > 16)
+                return;
+
+            if (character == '.' && display.Contains("."))
+                return;
+
+
+            if (display == "0" && character != '.')
+                display = "";
+
+            display = display + character;
+
+            value = Convert.ToDecimal(display);
+
+        }
+
+        public void DeleteLastCharacter()
+        {
+            
         }
 
         public override decimal ToDecimal()

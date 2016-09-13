@@ -22,6 +22,16 @@ namespace Calculator.Models
             value = Convert.ToInt32(val);
         }
 
+        public override void SetValue(string val)
+        {
+            value = Convert.ToInt32(val, 16);
+        }
+
+        public override void AddCharacter(char car)
+        {
+            throw new NotImplementedException();
+        }
+
         public Hex(string b)
         {
             value = Convert.ToInt32(b, 16);

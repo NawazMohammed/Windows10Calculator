@@ -3,11 +3,13 @@ using System.Collections.Generic;
 
 namespace Calculator.Models
 {
+    using System.Linq;
+
     public abstract class ExpressionBase 
     {
         public int Id { get; }
 
-        protected INumber executedValue;
+        protected INumber ExecutedValue;
         public Operation CurrentOperation { get; set; }
 
         public string Display { get; protected set; } 
@@ -17,22 +19,23 @@ namespace Calculator.Models
 
         private List<Operation> operations = new List<Operation>();
 
-        protected ExpressionBase(int id, INumber initialValue)
+        protected ExpressionBase(int id, INumber defaultNumber, INumber defaultValue)
         {
             Id = id;
-            executedValue = initialValue;
-            CurrentOperation = new Operation(initialValue, new NullOperator());
-            Display = initialValue.ToDisplayString();
+            CurrentOperation = new Operation(defaultValue, new NullOperator()) { RhsNumber = defaultNumber };
+            ExecutedValue = defaultValue;
+            Display = ExecutedValue.ToDisplayString();
         }
 
         public string ToDisplayString()
         {
-            //var strin = value.ToDisplayString();
-
             var strin = "";
 
             foreach (var operation in operations)
             {
+                if(operations.Count == 1  &&  operation.Operator.GetType() == typeof(NullOperator) && CurrentOperation == null)
+                    continue;
+
                 strin = strin + " " + operation.ToDisplayString();
             }
 
@@ -49,8 +52,13 @@ namespace Calculator.Models
                 return;
 
             var commandText = GetNumericCommandCharacter(command);
-            UpdateDisplay(commandText);
-            Display = CurrentOperation.Number.ToDisplayString();
+
+            if (CurrentOperation.RhsNumber == null)
+                CurrentOperation.RhsNumber = GetNumber(commandText.ToString());
+            else
+                CurrentOperation.RhsNumber.AddCharacter(commandText);
+
+            Display = CurrentOperation.RhsNumber.ToDisplayString();
         }
 
         public void StartNewOperation(Command command)
@@ -58,13 +66,14 @@ namespace Calculator.Models
             if (!IsValidOperatorCommand(command))
                 return;
             var opr = GetOperator(command);
-            CurrentOperation = new Operation(opr);
+
+            CurrentOperation = new Operation(ExecutedValue, opr);
         }
 
         public void Complete()
         {
             var opr = GetOperator(Command.EQUAL);
-            CurrentOperation = new Operation(opr);
+            CurrentOperation = new Operation(ExecutedValue,opr);
         }
 
         protected abstract INumber GetNumber(string value);
@@ -76,33 +85,17 @@ namespace Calculator.Models
         protected abstract IOperator GetOperator(Command command);
         public void DeleteLastCharacter()
         {
-            var display = CurrentOperation.Number.ToDisplayString();
-            if (display == null)
+            CurrentOperation.RhsNumber.DeleteLastCharacter();
+            Display = CurrentOperation.RhsNumber.ToDisplayString();
+        }
+        public void ExecutePreviousOperation()
+        {
+            if (CurrentOperation.Operator == null || CurrentOperation.RhsNumber == null || CurrentOperation.LhsNumber == null)
                 return;
 
-            if (display.Length > 0)
-                display = display.Remove(display.Length - 1);
-            if (display == "")
-                display = "0";
-
-            CurrentOperation.Number = GetNumber(display);
-            Display = CurrentOperation.Number.ToDisplayString();
-        }
-        public void Execute()
-        {
-            if (CurrentOperation.Operator == null || CurrentOperation.Number == null)
-                return;
-
-            CurrentOperation.Execute(executedValue);
-            Display = executedValue.ToDisplayString();
-            operations.Add(CurrentOperation);
-            
-        }
-
-        public void Reset(INumber initialValue)
-        {
-            operations = new List<Operation>();
-            CurrentOperation = new Operation(initialValue, new NullOperator());
+            ExecutedValue = CurrentOperation.Execute(GetNumber);
+            Display = ExecutedValue.ToDisplayString();   
+            operations.Add(CurrentOperation);     
         }
     }
 
