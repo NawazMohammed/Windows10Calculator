@@ -32,7 +32,7 @@
             //(see setup)
 
             //Act
-            calculatorViewModel.OnNumericCommandClick(Command.ONE);
+            calculatorViewModel.NumericCommandClick.Execute(Command.ONE);
 
             //Assert
             A.CallTo(()=>calculatorService.OnNumericCommand(A<Command>._)).MustHaveHappened(Repeated.Exactly.Once);
@@ -46,7 +46,7 @@
             //(see setup)
 
             //Act
-            calculatorViewModel.OnOperatorCommandClick(Command.ONE);
+            calculatorViewModel.OperatorCommandClick.Execute(Command.PLUS);
 
             //Assert
             A.CallTo(() => calculatorService.OnOperatorCommand(A<Command>._)).MustHaveHappened(Repeated.Exactly.Once);
@@ -59,7 +59,7 @@
             //(see setup)
 
             //Act
-            calculatorViewModel.OnControlCommandClick(Command.PLUS);
+            calculatorViewModel.ControlCommandClick.Execute(Command.EQUAL);
 
             //Assert
             A.CallTo(() => calculatorService.OnControlCommand(A<Command>._)).MustHaveHappened(Repeated.Exactly.Once);

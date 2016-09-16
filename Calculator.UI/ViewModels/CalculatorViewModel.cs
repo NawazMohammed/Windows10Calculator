@@ -26,46 +26,22 @@ namespace Calculator.UI.ViewModels
             this.calculatorService = calculatorService;
         }
         
-        public ICommand ClickCommand
-        {
-            get
-            {
-                return clickCommand ?? (clickCommand = new ClickCommand(param => OnNumericCommandClick(param), _canExecute));
-            }
-        }
+        public ICommand NumericCommandClick => clickCommand ?? (clickCommand = new ClickCommand(OnNumericCommandClick, _canExecute));
 
-        public ICommand OperationClickCommand
-        {
-            get
-            {
-                return operationClickCommand ?? (operationClickCommand = new ClickCommand(param => OnOperatorCommandClick(param), _canExecute));
-            }
-        }
+        public ICommand OperatorCommandClick => operationClickCommand ?? (operationClickCommand = new ClickCommand(OnOperatorCommandClick, _canExecute));
 
-        public ICommand ControlClickCommand
-        {
-            get
-            {
-                return controlClickCommand ?? (controlClickCommand = new ClickCommand(param => OnControlCommandClick(param), _canExecute));
-            }
-        }
+        public ICommand ControlCommandClick => controlClickCommand ?? (controlClickCommand = new ClickCommand(OnControlCommandClick, _canExecute));
 
-        public ICommand ExpressionClickCommand
-        {
-            get
-            {
-                return expressionClickCommand ?? (expressionClickCommand = new ClickCommand(param => OnExpressionClick(param), _canExecute));
-            }
-        }
+        public ICommand ExpressionCommandClick => expressionClickCommand ?? (expressionClickCommand = new ClickCommand(OnExpressionClick, _canExecute));
 
-        public void OnNumericCommandClick(object command)
+        private void OnNumericCommandClick(object command)
         {
             var com = command.ToEnum<Command>();
             calculatorService.OnNumericCommand(com);
             Result = calculatorService.Expression.Display;
         }
 
-        public void OnOperatorCommandClick(object command)
+        private void OnOperatorCommandClick(object command)
         {
             var com = command.ToEnum<Command>();
             calculatorService.OnOperatorCommand(com);
@@ -73,15 +49,13 @@ namespace Calculator.UI.ViewModels
             Expression = calculatorService.Expression.ExpressionString;
         }
 
-        public void OnControlCommandClick(object command)
+        private void OnControlCommandClick(object command)
         {
             var com = command.ToEnum<Command>();
             calculatorService.OnControlCommand(com);
             Result = calculatorService.Expression.Display;
             Expression = calculatorService.Expression.ExpressionString;
 
-            if (Expressions == null)
-                Expressions = new ObservableCollection<ExpressionBase>();
             Expressions.Clear();
             foreach (var expression in calculatorService.Expressions)
             {
@@ -91,7 +65,7 @@ namespace Calculator.UI.ViewModels
 
         }
 
-        public void OnExpressionClick(object id)
+        private void OnExpressionClick(object id)
         {
             var expressionId = Convert.ToInt32(id);
             //_calculatorService.HandleCommand(com);
@@ -113,25 +87,8 @@ namespace Calculator.UI.ViewModels
         }
 
        // private List<Expression> _expressions = new List<Expression>() { new Expression() { _display = "8", _items = new List<ExpressionItem> { new ExpressionItem() {Type = ExpressionItemType.NUMBER, ItemString ="8",NumberValue = 8 }, new ExpressionItem() { Type=ExpressionItemType.OPERATOR,OperatorValue = Command.EQUAL} } } };
-        private readonly ObservableCollection<ExpressionBase> expressions = new ObservableCollection<ExpressionBase>();
 
-        public ObservableCollection<ExpressionBase> Expressions
-        {
-            get
-            {
-                return expressions;
-            }
-
-          set
-            {
-                expressions.Clear();
-                foreach (var expression in value)
-                {
-                    expressions.Add(expression);
-                }
-                NotifyPropertyChanged();
-            }
-        }
+        public ObservableCollection<ExpressionBase> Expressions { get; } = new ObservableCollection<ExpressionBase>();
 
         public string Expression
         {
