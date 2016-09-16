@@ -2,11 +2,13 @@
 
 namespace Calculator.Models.Expressions
 {
+    using System.ComponentModel;
+
     using Calculator.Models.Operators;
     public class OctalExpression : ExpressionBase
     {
-        public OctalExpression(int id)
-            : base(id, new Octal(0), new Octal(0))
+        public OctalExpression(int id, Octal defaultNumber, Octal defaultValue)
+            : base(id, defaultNumber, defaultValue)
         { }
 
         protected override INumber GetNumber(string value)
@@ -31,6 +33,8 @@ namespace Calculator.Models.Expressions
                     return new Multiply();
                 case Command.DIVIDE:
                     return new Divide();
+                case Command.EQUAL:
+                    return new Equals();
                 default:
                     throw new InvalidOperationException();
             }
@@ -41,9 +45,15 @@ namespace Calculator.Models.Expressions
             {
                 case Command.ZERO:
                 case Command.ONE:
+                case Command.TWO:
+                case Command.THREE:
+                case Command.FOUR:
+                case Command.FIVE:
+                case Command.SIX:
+                case Command.SEVEN:
                     return true;
                 default:
-                    return false;
+                    throw new InvalidEnumArgumentException();
             }
         }
         protected override char GetNumericCommandCharacter(Command command)
@@ -54,27 +64,25 @@ namespace Calculator.Models.Expressions
                     return '0';
                 case Command.ONE:
                     return '1';
+                case Command.TWO:
+                    return '2';
+                case Command.THREE:
+                    return '3';
+                case Command.FOUR:
+                    return '4';
+                case Command.FIVE:
+                    return '5';
+                case Command.SIX:
+                    return '6';
+                case Command.SEVEN:
+                    return '7';
+                case Command.EIGHT:
+                    return '8';
                 default:
                     throw new InvalidOperationException();
             }
         }
-        protected override void UpdateDisplay(char character)
-        {
-            var display = CurrentOperation.RhsNumber.ToDisplayString();
-            if (display.Length > 64)
-                return;
-
-            if (display == "0" && character == '0')
-                return;
-
-            if (display == "0" && character != '0')
-                display = "";
-
-            display = display + character;
-
-            CurrentOperation.RhsNumber = GetNumber(display);
-
-        }
+      
         protected override bool IsValidOperatorCommand(Command command)
         {
             switch (command)

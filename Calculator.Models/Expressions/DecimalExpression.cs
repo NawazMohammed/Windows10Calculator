@@ -2,11 +2,13 @@
 
 namespace Calculator.Models.Expressions
 {
+    using System.ComponentModel;
+
     using Operators;
 
     public class DecimalExpression : ExpressionBase
     {
-        public DecimalExpression(int id, INumber defaultNumber, INumber defaultValue)
+        public DecimalExpression(int id, Dec defaultNumber, Dec defaultValue)
             : base(id, defaultNumber,defaultValue)
         { }
 
@@ -21,27 +23,6 @@ namespace Calculator.Models.Expressions
             return new Dec(value);
         }
 
-        protected override void UpdateDisplay(char character)
-        {
-            var display = "";
-            if (CurrentOperation.RhsNumber != null) display = CurrentOperation.RhsNumber.ToDisplayString();
-
-            if (display.Length > 16)
-                return;
-
-            if (character == '.' && display.Contains("."))
-                return;
-
-
-            if (display == "0" && character != '.')
-                display = "";
-
-            display = display + character;
-
-            var updatedNumber = GetNumber(display);
-            CurrentOperation.RhsNumber = updatedNumber;
-            
-        }
 
         protected override char GetNumericCommandCharacter(Command command)
         {
@@ -130,7 +111,7 @@ namespace Calculator.Models.Expressions
                 case Command.POINT:
                     return true;
                 default:
-                    return false;
+                    throw new InvalidEnumArgumentException();
             }
         }
 

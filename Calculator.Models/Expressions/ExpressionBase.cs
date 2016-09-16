@@ -80,7 +80,6 @@ namespace Calculator.Models
         protected abstract INumber GetNumber(decimal value);
         protected abstract bool IsValidNumericCommand(Command command);
         protected abstract char GetNumericCommandCharacter(Command command);
-        protected abstract void UpdateDisplay(char character);
         protected abstract bool IsValidOperatorCommand(Command command);
         protected abstract IOperator GetOperator(Command command);
         public void DeleteLastCharacter()

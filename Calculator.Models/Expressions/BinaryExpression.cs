@@ -2,12 +2,14 @@
 
 namespace Calculator.Models.Expressions
 {
+    using System.ComponentModel;
+
     using Operators;
 
     public class BinaryExpression : ExpressionBase
     {
-        public BinaryExpression(int id)
-            : base(id, new Binary(0), new Binary(0))
+        public BinaryExpression(int id, Binary defaultNumber, Binary defaultValue)
+            : base(id, defaultNumber, defaultValue)
         { }
 
         protected override INumber GetNumber(string value)
@@ -32,6 +34,8 @@ namespace Calculator.Models.Expressions
                     return new Multiply();
                 case Command.DIVIDE:
                     return new Divide();
+                case Command.EQUAL:
+                    return new Equals();
                 default:
                     throw new InvalidOperationException();
             }
@@ -44,7 +48,7 @@ namespace Calculator.Models.Expressions
                 case Command.ONE:
                     return true;
                 default:
-                    return false;
+                    throw new InvalidEnumArgumentException();
             }
         }
         protected override char GetNumericCommandCharacter(Command command)
@@ -56,27 +60,10 @@ namespace Calculator.Models.Expressions
                 case Command.ONE:
                     return '1';
                 default:
-                    throw new InvalidOperationException();
+                    throw new InvalidEnumArgumentException();
             }
         }
-        protected override void UpdateDisplay(char character)
-        {
-
-            var display = CurrentOperation.RhsNumber.ToDisplayString();
-            if (display.Length > 64)
-                return;
-
-            if (display == "0" && character == '0')
-                return;
-
-            if (display == "0" && character != '0')
-                display = "";
-
-            display = display + character;
-
-            CurrentOperation.RhsNumber = GetNumber(display);
-
-        }
+    
         protected override bool IsValidOperatorCommand(Command command)
         {
             switch (command)

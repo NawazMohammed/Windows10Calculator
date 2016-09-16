@@ -27,9 +27,21 @@ namespace Calculator.Models
             value = Convert.ToInt32(val, 16);
         }
 
-        public override void AddCharacter(char car)
+        public override void AddCharacter(char character)
         {
-            throw new NotImplementedException();
+            var display = ToDisplayString();
+            if (display.Length > 64)
+                return;
+
+            if (display == "0" && character == '0')
+                return;
+
+            if (display == "0" && character != '0')
+                display = "";
+
+            display = display + character;
+
+            value = Convert.ToInt32(display, 16);
         }
 
         public Hex(string b)
@@ -44,7 +56,7 @@ namespace Calculator.Models
 
         public override string ToDisplayString()
         {
-             return Convert.ToString(value, 16);
+             return Convert.ToString(value, 16).ToUpper();
         }
     }
 }

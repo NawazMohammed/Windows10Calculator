@@ -2,12 +2,14 @@
 
 namespace Calculator.Models.Expressions
 {
+    using System.ComponentModel;
+
     using Calculator.Models.Operators;
 
     public class HexExpression : ExpressionBase
     {
-        public HexExpression(int id)
-            : base(id, new Hex(0), new Hex(0))
+        public HexExpression(int id, Hex defaultNumber, Hex defaultValue)
+            : base(id, defaultNumber, defaultValue)
         { }
 
         protected override INumber GetNumber(string value)
@@ -32,8 +34,10 @@ namespace Calculator.Models.Expressions
                     return new Multiply();
                 case Command.DIVIDE:
                     return new Divide();
+                case Command.EQUAL:
+                    return new Equals();
                 default:
-                    throw new InvalidOperationException();
+                    throw new InvalidEnumArgumentException();
             }
         }
         protected override bool IsValidNumericCommand(Command command)
@@ -42,9 +46,24 @@ namespace Calculator.Models.Expressions
             {
                 case Command.ZERO:
                 case Command.ONE:
+                case Command.TWO:
+                case Command.THREE:
+                case Command.FOUR:
+                case Command.FIVE:
+                case Command.SIX:
+                case Command.SEVEN:
+                case Command.EIGHT:
+                case Command.NINE:
+                case Command.POINT:
+                case Command.A:
+                case Command.B:
+                case Command.C:
+                case Command.D:
+                case Command.E:
+                case Command.F:
                     return true;
                 default:
-                    return false;
+                    throw new InvalidEnumArgumentException();
             }
         }
         protected override char GetNumericCommandCharacter(Command command)
@@ -55,11 +74,40 @@ namespace Calculator.Models.Expressions
                     return '0';
                 case Command.ONE:
                     return '1';
+                case Command.TWO:
+                    return '2';
+                case Command.THREE:
+                    return '3';
+                case Command.FOUR:
+                    return '4';
+                case Command.FIVE:
+                    return '5';
+                case Command.SIX:
+                    return '6';
+                case Command.SEVEN:
+                    return '7';
+                case Command.EIGHT:
+                    return '8';
+                case Command.NINE:
+                    return '9';
+                case Command.A:
+                    return 'A';
+                case Command.B:
+                    return 'B';
+                case Command.C:
+                    return 'C';
+                case Command.D:
+                    return 'D';
+                case Command.E:
+                    return 'E';
+                case Command.F:
+                    return 'F';
+
                 default:
                     throw new InvalidOperationException();
             }
         }
-        protected override void UpdateDisplay(char character)
+        protected  void UpdateDisplay(char character)
         {
             var display = CurrentOperation.RhsNumber.ToDisplayString();
             if (display.Length > 64)

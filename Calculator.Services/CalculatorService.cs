@@ -6,17 +6,18 @@ using Calculator.Models.Expressions;
 
 namespace Calculator.Services
 {
-  
+    using System;
+
+    using Calculator.Common;
 
     public class CalculatorService : ICalculatorService
     {
-        private readonly IServiceFactory serviceFactory;
         private Mode currrentMode;
         private int expressionId;
         public CalculatorService()
         {
-            serviceFactory = serviceFactory;
-            CurrentMode = Mode.DEC;
+            currrentMode = Mode.DEC;
+            Expression = new DecimalExpression(ExpressionId, new Dec(0), new Dec(0));
             Expressions = new List<ExpressionBase>();
         }
 
@@ -37,13 +38,35 @@ namespace Calculator.Services
             set
             {
                 currrentMode = value;
-
-                Expression = new DecimalExpression(ExpressionId, new Dec(0), new Dec(0));
+                ResetExpression("0", Expression.Display);
             }
         }
+
+        private void ResetExpression(string defaultNumber, string defaultValue)
+        {
+            switch (currrentMode)
+            {
+                case Mode.DEC:
+                    Expression = new DecimalExpression(ExpressionId, new Dec(defaultNumber), new Dec(defaultValue));
+                    break;
+                case Mode.HEX:
+                    Expression = new HexExpression(ExpressionId, new Hex(defaultNumber), new Hex(defaultValue));
+                    break;
+                case Mode.OCT:
+                    Expression = new OctalExpression(ExpressionId, new Octal(defaultNumber), new Octal(defaultValue));
+                    break;
+                case Mode.BIN:
+                    Expression = new BinaryExpression(ExpressionId, new Binary(defaultNumber), new Binary(defaultValue));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
         public List<ExpressionBase> Expressions { get; }
 
         public ExpressionBase Expression { get; private set; }
+
         public string GetResultInFormat(Mode mode)
         {
             switch (mode)
@@ -60,19 +83,21 @@ namespace Calculator.Services
                     return "0";
             }
         }
+
         public void OnNumericCommand(Command command)
         {
             Expression.UpdateNumber(command);
         }
+
         public void OnOperatorCommand(Command command)
         {
             Expression.ExecutePreviousOperation();
             Expression.StartNewOperation(command);
         }
+
         public void OnControlCommand(Command command)
         {
-            if (!IsValidControlCommand(command))
-                return;
+            if (!IsValidControlCommand(command)) return;
 
             switch (command)
             {
@@ -83,10 +108,10 @@ namespace Calculator.Services
                     Expression.ExecutePreviousOperation();
                     Expression.Complete();
                     Expressions.Add(Expression);
-                    Expression = new DecimalExpression(ExpressionId, new Dec(0), new Dec(Expression.Display));
+                    ResetExpression("0", Expression.Display);
                     break;
                 case Command.CLEAR:
-                    Expression = new DecimalExpression(ExpressionId, new Dec(0), new Dec(0));
+                    ResetExpression("0", "0");
                     break;
             }
         }
@@ -102,7 +127,6 @@ namespace Calculator.Services
                 default:
                     return false;
             }
-
         }
     }
 }

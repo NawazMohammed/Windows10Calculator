@@ -26,9 +26,21 @@ namespace Calculator.Models
             value = Convert.ToInt32(val, 2);
         }
 
-        public override void AddCharacter(char car)
+        public override void AddCharacter(char character)
         {
-            throw new NotImplementedException();
+            var display = ToDisplayString();
+            if (display.Length > 64)
+                return;
+
+            if (display == "0" && character == '0')
+                return;
+
+            if (display == "0" && character != '0')
+                display = "";
+
+            display = display + character;
+
+            value = Convert.ToInt32(display, 2);
         }
 
         public override  decimal ToDecimal()
