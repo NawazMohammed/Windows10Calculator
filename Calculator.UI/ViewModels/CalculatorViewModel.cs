@@ -1,5 +1,4 @@
-﻿using Calculator.Common;
-using Calculator.Contracts;
+﻿using Calculator.Contracts;
 using Calculator.Models;
 using System;
 using System.Collections.ObjectModel;
@@ -39,7 +38,7 @@ namespace Calculator.UI.ViewModels
         {
             get
             {
-                return operationClickCommand ?? (operationClickCommand = new ClickCommand(param => OnOperationCommandClick(param), _canExecute));
+                return operationClickCommand ?? (operationClickCommand = new ClickCommand(param => OnOperatorCommandClick(param), _canExecute));
             }
         }
 
@@ -66,7 +65,7 @@ namespace Calculator.UI.ViewModels
             Result = calculatorService.Expression.Display;
         }
 
-        public void OnOperationCommandClick(object command)
+        public void OnOperatorCommandClick(object command)
         {
             var com = command.ToEnum<Command>();
             calculatorService.OnOperatorCommand(com);
@@ -113,12 +112,6 @@ namespace Calculator.UI.ViewModels
             //NotifyPropertyChanged("Expressions");
         }
 
-       
-
-       
-
- 
-     
        // private List<Expression> _expressions = new List<Expression>() { new Expression() { _display = "8", _items = new List<ExpressionItem> { new ExpressionItem() {Type = ExpressionItemType.NUMBER, ItemString ="8",NumberValue = 8 }, new ExpressionItem() { Type=ExpressionItemType.OPERATOR,OperatorValue = Command.EQUAL} } } };
         private readonly ObservableCollection<ExpressionBase> expressions = new ObservableCollection<ExpressionBase>();
 

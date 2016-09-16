@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Calculator.Common
+﻿namespace Calculator.UI.ViewModels
 {
+    using System;
+
     public static class Extensions
     {
         public static T ToEnum<T>(this object o)
