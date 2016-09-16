@@ -1,27 +1,24 @@
 ﻿using System;
+using System.ComponentModel;
+using Calculator.Models.Numbers;
+using Calculator.Models.Operators;
 
 namespace Calculator.Models.Expressions
-{
-    using System.ComponentModel;
-
-    using Calculator.Models.Numbers;
-
-    using Operators;
-
+{ 
     public class BinaryExpression : ExpressionBase
     {
-        public BinaryExpression(int id, Binary defaultNumber, Binary defaultValue)
+        public BinaryExpression(int id, BinaryNumber defaultNumber, BinaryNumber defaultValue)
             : base(id, defaultNumber, defaultValue)
         { }
 
         protected override INumber GetNumber(string value)
         {
-            return new Binary(value);
+            return new BinaryNumber(value);
         }
 
         protected override INumber GetNumber(decimal value)
         {
-            return new Binary(value);
+            return new BinaryNumber(value);
         }
 
         protected override IOperator GetOperator(Command command)

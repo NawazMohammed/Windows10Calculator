@@ -10,19 +10,19 @@ namespace Calculator.Models.Expressions
 
     public class DecimalExpression : ExpressionBase
     {
-        public DecimalExpression(int id, Dec defaultNumber, Dec defaultValue)
+        public DecimalExpression(int id, DecimalNumber defaultNumber, DecimalNumber defaultValue)
             : base(id, defaultNumber,defaultValue)
         { }
 
         protected override INumber GetNumber(string value)
         {
             var number = Convert.ToDecimal(value);
-            return new Dec(number);
+            return new DecimalNumber(number);
         }
 
         protected override INumber GetNumber(decimal value)
         {
-            return new Dec(value);
+            return new DecimalNumber(value);
         }
 
 

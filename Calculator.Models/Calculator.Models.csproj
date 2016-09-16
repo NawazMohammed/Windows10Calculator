@@ -40,20 +40,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Numbers\Binary.cs" />
-    <Compile Include="Numbers\Number.cs" />
+    <Compile Include="Numbers\BinaryNumber.cs" />
+    <Compile Include="Numbers\NumberBase.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CommandType.cs" />
-    <Compile Include="Numbers\Dec.cs" />
+    <Compile Include="Numbers\DecimalNumber.cs" />
     <Compile Include="Expressions\BinaryExpression.cs" />
     <Compile Include="Expressions\DecimalExpression.cs" />
     <Compile Include="Expressions\ExpressionBase.cs" />
     <Compile Include="Expressions\HexExpression.cs" />
     <Compile Include="Expressions\OctalExpression.cs" />
     <Compile Include="Operation.cs" />
-    <Compile Include="Numbers\Hex.cs" />
+    <Compile Include="Numbers\HexNumber.cs" />
     <Compile Include="Mode.cs" />
-    <Compile Include="Numbers\Octal.cs" />
+    <Compile Include="Numbers\OctalNumber.cs" />
     <Compile Include="Operators\Operators.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

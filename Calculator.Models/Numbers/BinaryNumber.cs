@@ -2,40 +2,40 @@
 {
     using System;
 
-    public class Binary : Number
+    public class BinaryNumber : NumberBase
     {
         private int value;
-        public Binary(string value)
+        public BinaryNumber(string value)
         {
             this.value = Convert.ToInt32(value, 2);
-            tempValue = value;
+            TempValue = value;
         }
 
-        public Binary(decimal value)
+        public BinaryNumber(decimal value)
         {
             this.value = Convert.ToInt32(value);
-            tempValue = Convert.ToString(this.value, 2);
+            TempValue = Convert.ToString(this.value, 2);
         }
 
         public override void AddCharacter(char character)
         {
-            if (tempValue.Length > 64)
+            if (TempValue.Length > 64)
                 return;
 
-            if (tempValue == "0" && character == '0')
+            if (TempValue == "0" && character == '0')
                 return;
 
-            if (tempValue == "0" && character != '0')
-                tempValue = "";
+            if (TempValue == "0" && character != '0')
+                TempValue = "";
 
-            tempValue = tempValue + character;
+            TempValue = TempValue + character;
 
         }
 
         public override void Lock()
         {
-            isLocked = true;
-            value = value = Convert.ToInt32(tempValue, 2);
+            IsLocked = true;
+            value = value = Convert.ToInt32(TempValue, 2);
         }
 
         public override  decimal ToDecimal()
@@ -45,7 +45,7 @@
 
         public override string ToDisplayString()
         {
-            return isLocked ? Convert.ToString(value, 2) : tempValue;
+            return IsLocked ? Convert.ToString(value, 2) : TempValue;
         }
     } 
 

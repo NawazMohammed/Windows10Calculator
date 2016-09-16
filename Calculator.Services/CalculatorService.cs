@@ -18,7 +18,7 @@ namespace Calculator.Services
         public CalculatorService()
         {
             currrentMode = Mode.DEC;
-            Expression = new DecimalExpression(ExpressionId, new Dec("0"), new Dec("0"));
+            Expression = new DecimalExpression(ExpressionId, new DecimalNumber("0"), new DecimalNumber("0"));
             Expressions = new List<ExpressionBase>();
         }
 
@@ -48,16 +48,16 @@ namespace Calculator.Services
             switch (currrentMode)
             {
                 case Mode.DEC:
-                    Expression = new DecimalExpression(ExpressionId, new Dec(defaultNumber), new Dec(defaultValue));
+                    Expression = new DecimalExpression(ExpressionId, new DecimalNumber(defaultNumber), new DecimalNumber(defaultValue));
                     break;
                 case Mode.HEX:
-                    Expression = new HexExpression(ExpressionId, new Hex(defaultNumber), new Hex(defaultValue));
+                    Expression = new HexExpression(ExpressionId, new HexNumber(defaultNumber), new HexNumber(defaultValue));
                     break;
                 case Mode.OCT:
-                    Expression = new OctalExpression(ExpressionId, new Octal(defaultNumber), new Octal(defaultValue));
+                    Expression = new OctalExpression(ExpressionId, new OctalNumber(defaultNumber), new OctalNumber(defaultValue));
                     break;
                 case Mode.BIN:
-                    Expression = new BinaryExpression(ExpressionId, new Binary(defaultNumber), new Binary(defaultValue));
+                    Expression = new BinaryExpression(ExpressionId, new BinaryNumber(defaultNumber), new BinaryNumber(defaultValue));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

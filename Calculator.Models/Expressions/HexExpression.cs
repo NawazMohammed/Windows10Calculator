@@ -9,18 +9,18 @@ namespace Calculator.Models.Expressions
 
     public class HexExpression : ExpressionBase
     {
-        public HexExpression(int id, Hex defaultNumber, Hex defaultValue)
+        public HexExpression(int id, HexNumber defaultNumber, HexNumber defaultValue)
             : base(id, defaultNumber, defaultValue)
         { }
 
         protected override INumber GetNumber(string value)
         {
-            return new Hex(value);
+            return new HexNumber(value);
         }
 
         protected override INumber GetNumber(decimal value)
         {
-            return new Hex(value);
+            return new HexNumber(value);
         }
 
         protected override IOperator GetOperator(Command command)

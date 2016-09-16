@@ -8,18 +8,18 @@ namespace Calculator.Models.Expressions
     using Calculator.Models.Operators;
     public class OctalExpression : ExpressionBase
     {
-        public OctalExpression(int id, Octal defaultNumber, Octal defaultValue)
+        public OctalExpression(int id, OctalNumber defaultNumber, OctalNumber defaultValue)
             : base(id, defaultNumber, defaultValue)
         { }
 
         protected override INumber GetNumber(string value)
         {
-            return new Octal(value);
+            return new OctalNumber(value);
         }
 
         protected override INumber GetNumber(decimal value)
         {
-            return new Octal(value);
+            return new OctalNumber(value);
         }
 
         protected override IOperator GetOperator(Command command)

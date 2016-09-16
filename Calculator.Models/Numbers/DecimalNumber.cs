@@ -2,42 +2,42 @@
 {
     using System;
 
-    public class Dec:Number
+    public class DecimalNumber:NumberBase
     {
         private decimal value;
 
-        public Dec(decimal value)
+        public DecimalNumber(decimal value)
         {
             this.value = value;
-            tempValue = value.ToString("G29");
+            TempValue = value.ToString("G29");
         }
 
-        public Dec(string val)
+        public DecimalNumber(string val)
         {
             value = Convert.ToDecimal(val);
-            tempValue = val;
+            TempValue = val;
         }
 
         public override void AddCharacter(char character)
         {
-            if (tempValue.Length > 16)
+            if (TempValue.Length > 16)
                 return;
 
-            if (character == '.' && tempValue.Contains("."))
+            if (character == '.' && TempValue.Contains("."))
                 return;
 
 
-            if (tempValue == "0" && character != '.')
-                tempValue = "";
+            if (TempValue == "0" && character != '.')
+                TempValue = "";
 
-            tempValue = tempValue + character;
+            TempValue = TempValue + character;
 
         }
 
         public override void Lock()
         {
-            isLocked = true;
-            value = Convert.ToDecimal(tempValue);
+            IsLocked = true;
+            value = Convert.ToDecimal(TempValue);
         }
 
         public override decimal ToDecimal()
@@ -47,7 +47,7 @@
 
         public override string ToDisplayString()
         {
-            return isLocked ? value.ToString("G29") : tempValue;
+            return IsLocked ? value.ToString("G29") : TempValue;
         }
     }
 }

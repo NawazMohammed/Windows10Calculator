@@ -2,40 +2,40 @@
 {
     using System;
 
-    public class Octal: Number
+    public class OctalNumber: NumberBase
     {
         private  int value;
 
-        public Octal(decimal value)
+        public OctalNumber(decimal value)
         {
             this.value = Convert.ToInt32(value);
-            tempValue = Convert.ToString(this.value, 8);
+            TempValue = Convert.ToString(this.value, 8);
         }
-        public Octal(string val)
+        public OctalNumber(string val)
         {
             value = Convert.ToInt32(val, 8);
-            tempValue = val;
+            TempValue = val;
         }
 
         public override void AddCharacter(char character)
         {
-            if (tempValue.Length > 64)
+            if (TempValue.Length > 64)
                 return;
 
-            if (tempValue == "0" && character == '0')
+            if (TempValue == "0" && character == '0')
                 return;
 
-            if (tempValue == "0" && character != '0')
-                tempValue = "";
+            if (TempValue == "0" && character != '0')
+                TempValue = "";
 
-            tempValue = tempValue + character;
+            TempValue = TempValue + character;
             
         }
 
         public override void Lock()
         {
-            isLocked = true;
-            value = value = Convert.ToInt32(tempValue, 8);
+            IsLocked = true;
+            value = value = Convert.ToInt32(TempValue, 8);
         }
 
         public override decimal ToDecimal()
@@ -45,7 +45,7 @@
 
         public override string ToDisplayString()
         {
-            return isLocked ? Convert.ToString(value, 8) : tempValue;
+            return IsLocked ? Convert.ToString(value, 8) : TempValue;
         }
     }
 
