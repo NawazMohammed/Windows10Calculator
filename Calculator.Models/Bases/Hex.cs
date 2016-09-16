@@ -10,6 +10,7 @@ namespace Calculator.Models
         public Hex(decimal value)
         {
             this.value = Convert.ToInt32(value);
+            tempValue = Convert.ToString(this.value, 16);
         }
 
         public Hex(int value)
@@ -17,36 +18,31 @@ namespace Calculator.Models
             this.value = value;
         }
 
-        public override void SetValue(decimal val)
-        {
-            value = Convert.ToInt32(val);
-        }
-
-        public override void SetValue(string val)
-        {
-            value = Convert.ToInt32(val, 16);
-        }
-
+       
         public override void AddCharacter(char character)
         {
-            var display = ToDisplayString();
-            if (display.Length > 64)
+            if (tempValue.Length > 64)
                 return;
 
-            if (display == "0" && character == '0')
+            if (tempValue == "0" && character == '0')
                 return;
 
-            if (display == "0" && character != '0')
-                display = "";
+            if (tempValue == "0" && character != '0')
+                tempValue = "";
 
-            display = display + character;
+            tempValue = tempValue + character;
+        }
 
-            value = Convert.ToInt32(display, 16);
+        public override void Lock()
+        {
+            isLocked = true;
+            value = value = Convert.ToInt32(tempValue, 16);
         }
 
         public Hex(string b)
         {
             value = Convert.ToInt32(b, 16);
+            tempValue = b;
         }
 
         public override decimal ToDecimal()
@@ -56,7 +52,7 @@ namespace Calculator.Models
 
         public override string ToDisplayString()
         {
-             return Convert.ToString(value, 16).ToUpper();
+            return isLocked ? Convert.ToString(value, 16).ToUpper() : tempValue.ToUpper();
         }
     }
 }

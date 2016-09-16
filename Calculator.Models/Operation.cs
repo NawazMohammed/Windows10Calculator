@@ -29,6 +29,8 @@ namespace Calculator.Models
 
         public INumber Execute(Func<decimal,INumber> convertToNumberFunc)
         {
+            RhsNumber.Lock();
+
             var result = Operator.Execute(LhsNumber.ToDecimal(), RhsNumber.ToDecimal());
 
             return convertToNumberFunc(result);

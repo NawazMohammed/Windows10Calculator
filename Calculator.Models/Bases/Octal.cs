@@ -10,6 +10,12 @@ namespace Calculator.Models
         public Octal(decimal value)
         {
             this.value = Convert.ToInt32(value);
+            tempValue = Convert.ToString(this.value, 8);
+        }
+        public Octal(string val)
+        {
+            value = Convert.ToInt32(val, 8);
+            tempValue = val;
         }
 
         public Octal(int value)
@@ -17,36 +23,25 @@ namespace Calculator.Models
             this.value = value;
         }
 
-        public override void SetValue(decimal val)
-        {
-            value = Convert.ToInt32(val);
-        }
-
-        public override void SetValue(string val)
-        {
-            value = Convert.ToInt32(val, 8);
-        }
-
         public override void AddCharacter(char character)
         {
-            var display = ToDisplayString();
-            if (display.Length > 64)
+            if (tempValue.Length > 64)
                 return;
 
-            if (display == "0" && character == '0')
+            if (tempValue == "0" && character == '0')
                 return;
 
-            if (display == "0" && character != '0')
-                display = "";
+            if (tempValue == "0" && character != '0')
+                tempValue = "";
 
-            display = display + character;
-
-            value = Convert.ToInt32(display, 8);
+            tempValue = tempValue + character;
+            
         }
 
-        public Octal(string b)
+        public override void Lock()
         {
-            value = Convert.ToInt32(b, 8);
+            isLocked = true;
+            value = value = Convert.ToInt32(tempValue, 8);
         }
 
         public override decimal ToDecimal()
@@ -56,7 +51,7 @@ namespace Calculator.Models
 
         public override string ToDisplayString()
         {
-            return Convert.ToString(value, 8);
+            return isLocked ? Convert.ToString(value, 8) : tempValue;
         }
     }
 

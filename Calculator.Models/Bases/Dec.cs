@@ -11,57 +11,45 @@ namespace Calculator.Models
         public Dec(decimal value)
         {
             this.value = value;
+            tempValue = value.ToString("G29");
         }
 
         public Dec(string val)
         {
             value = Convert.ToDecimal(val);
-        }
-
-        public override void SetValue(decimal val)
-        {
-            value = val;
-        }
-
-        public override void SetValue(string val)
-        {
-            value = Convert.ToDecimal(val);
+            tempValue = val;
         }
 
         public override void AddCharacter(char character)
         {
-            var display = ToDisplayString();
-
-            if (display.Length > 16)
+            if (tempValue.Length > 16)
                 return;
 
-            if (character == '.' && display.Contains("."))
+            if (character == '.' && tempValue.Contains("."))
                 return;
 
 
-            if (display == "0" && character != '.')
-                display = "";
+            if (tempValue == "0" && character != '.')
+                tempValue = "";
 
-            display = display + character;
-
-            value = Convert.ToDecimal(display);
+            tempValue = tempValue + character;
 
         }
 
-        public void DeleteLastCharacter()
+        public override void Lock()
         {
-            
+            isLocked = true;
+            value = Convert.ToDecimal(tempValue);
         }
 
         public override decimal ToDecimal()
-        {
+        {         
             return value;
         }
 
         public override string ToDisplayString()
         {
-            return value.ToString("G29");
+            return isLocked ? value.ToString("G29") : tempValue;
         }
-
     }
 }

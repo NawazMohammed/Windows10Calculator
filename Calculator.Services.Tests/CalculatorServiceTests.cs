@@ -217,6 +217,7 @@
         {
             //Arrange
             calculatorService.OnNumericCommand(Command.TWO);
+            calculatorService.OnNumericCommand(Command.POINT);
             calculatorService.OnOperatorCommand(Command.PLUS);
             calculatorService.OnNumericCommand(Command.THREE);
             calculatorService.OnControlCommand(Command.EQUAL);
@@ -227,6 +228,37 @@
             //Assert
             Assert.That(expre.Display, Is.EqualTo("5"));
             Assert.That(expre.ExpressionString, Is.EqualTo("2 + 3 ="));
+        }
+
+        [Test]
+        public void WhenANumberWithPointExitsAndAnotherPointIsPressedThenNewPointShouldBeIgnored()
+        {
+            //Arrange
+            calculatorService.OnNumericCommand(Command.TWO);
+            calculatorService.OnNumericCommand(Command.POINT);
+            calculatorService.OnNumericCommand(Command.NINE);
+
+
+            //Act
+            calculatorService.OnNumericCommand(Command.POINT);
+
+            //Assert
+            Assert.That(calculatorService.Expression.Display, Is.EqualTo("2.9"));
+        }
+
+        [Test]
+        public void WhenTheLastCharacterOfANumberIsPointAndEqualsIsPressedThenPointShouldBeIgnored()
+        {
+            //Arrange
+            calculatorService.OnNumericCommand(Command.TWO);
+            calculatorService.OnNumericCommand(Command.POINT);
+
+
+            //Act
+            calculatorService.OnControlCommand(Command.EQUAL);
+
+            //Assert
+            Assert.That(calculatorService.Expression.Display, Is.EqualTo("2"));
         }
 
         [Test]
@@ -260,6 +292,38 @@
             Assert.That(calculatorService.Expression.Display, Is.EqualTo("0"));
             Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo(""));
             Assert.That(calculatorService.Expression.GetType(), Is.EqualTo(typeof(DecimalExpression)));
+        }
+
+
+        [Test]
+        public void WhenAMultipleOperationsExistAndEqualsIsPressedThenTheExpressionIsCalculatedCorrectly()
+        {
+            //Arrange
+            calculatorService.OnNumericCommand(Command.TWO);
+            calculatorService.OnNumericCommand(Command.THREE);
+            calculatorService.OnNumericCommand(Command.POINT);
+            calculatorService.OnNumericCommand(Command.FIVE);
+            calculatorService.OnOperatorCommand(Command.PLUS);
+            calculatorService.OnNumericCommand(Command.SEVEN);
+            calculatorService.OnNumericCommand(Command.THREE);
+            calculatorService.OnOperatorCommand(Command.MULTIPLY);
+            calculatorService.OnNumericCommand(Command.EIGHT);
+            calculatorService.OnNumericCommand(Command.SIX);
+            calculatorService.OnNumericCommand(Command.POINT);
+            calculatorService.OnNumericCommand(Command.TWO);
+            calculatorService.OnOperatorCommand(Command.DIVIDE);
+            calculatorService.OnNumericCommand(Command.EIGHT);
+
+
+
+
+
+            //Act
+            calculatorService.OnControlCommand(Command.EQUAL);
+
+            //Assert
+            Assert.That(calculatorService.Expression.Display, Is.EqualTo("1039.7875"));
+
         }
     }
 

@@ -9,38 +9,34 @@ namespace Calculator.Models
         public Binary(string value)
         {
             this.value = Convert.ToInt32(value, 2);
+            tempValue = value;
         }
 
         public Binary(decimal value)
         {
             this.value = Convert.ToInt32(value);
-        }
-
-        public override void SetValue(decimal val)
-        {
-            value = Convert.ToInt32(value);
-        }
-
-        public override void SetValue(string val)
-        {
-            value = Convert.ToInt32(val, 2);
+            tempValue = Convert.ToString(this.value, 2);
         }
 
         public override void AddCharacter(char character)
         {
-            var display = ToDisplayString();
-            if (display.Length > 64)
+            if (tempValue.Length > 64)
                 return;
 
-            if (display == "0" && character == '0')
+            if (tempValue == "0" && character == '0')
                 return;
 
-            if (display == "0" && character != '0')
-                display = "";
+            if (tempValue == "0" && character != '0')
+                tempValue = "";
 
-            display = display + character;
+            tempValue = tempValue + character;
 
-            value = Convert.ToInt32(display, 2);
+        }
+
+        public override void Lock()
+        {
+            isLocked = true;
+            value = value = Convert.ToInt32(tempValue, 2);
         }
 
         public override  decimal ToDecimal()
@@ -50,7 +46,7 @@ namespace Calculator.Models
 
         public override string ToDisplayString()
         {
-            return Convert.ToString(value, 2);
+            return isLocked ? Convert.ToString(value, 2) : tempValue;
         }
     } 
 
@@ -60,14 +56,15 @@ namespace Calculator.Models
          decimal ToDecimal();
         string ToDisplayString();
 
-        void SetValue(decimal val);
+        //void SetValue(decimal val);
 
-        void SetValue(string val);
+        //void SetValue(string val);
 
         void AddCharacter(char car);
 
         void DeleteLastCharacter();
 
+        void Lock();
     }
 
 }
