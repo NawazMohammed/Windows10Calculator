@@ -1,9 +1,9 @@
-﻿using Calculator.Models.Operators;
-using System.Collections.Generic;
-
-namespace Calculator.Models
+﻿namespace Calculator.Models.Expressions
 {
-    using System.Linq;
+    using System.Collections.Generic;
+
+    using Calculator.Models.Numbers;
+    using Calculator.Models.Operators;
 
     public abstract class ExpressionBase 
     {
@@ -73,7 +73,7 @@ namespace Calculator.Models
         public void Complete()
         {
             var opr = GetOperator(Command.EQUAL);
-            CurrentOperation = new Operation(ExecutedValue,opr);
+            CurrentOperation = new Operation(ExecutedValue, opr);
         }
 
         protected abstract INumber GetNumber(string value);
@@ -93,7 +93,7 @@ namespace Calculator.Models
                 return;
 
             ExecutedValue = CurrentOperation.Execute(GetNumber);
-            Display = ExecutedValue.ToDisplayString();   
+            Display = ExecutedValue.ToDisplayString();
             operations.Add(CurrentOperation);     
         }
     }

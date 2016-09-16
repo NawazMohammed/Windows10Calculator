@@ -1,4 +1,4 @@
-﻿namespace Calculator.Models.Bases
+﻿namespace Calculator.Models.Numbers
 {
 
     public abstract class Number : INumber

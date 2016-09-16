@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace Calculator.Contracts.ServiceContracts
 {
+    using Calculator.Models.Expressions;
+
     public interface IService
     {
         List<ExpressionBase> Expressions { get; }

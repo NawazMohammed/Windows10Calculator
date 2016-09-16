@@ -9,6 +9,8 @@ using System.Windows.Input;
 
 namespace Calculator.UI.ViewModels
 {
+    using Calculator.Models.Expressions;
+
     public class CalculatorViewModel: INotifyPropertyChanged
     {
         private readonly ICalculatorService calculatorService;

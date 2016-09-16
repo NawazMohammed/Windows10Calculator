@@ -9,6 +9,7 @@ namespace Calculator.Services
     using System;
 
     using Calculator.Common;
+    using Calculator.Models.Numbers;
 
     public class CalculatorService : ICalculatorService
     {
@@ -17,7 +18,7 @@ namespace Calculator.Services
         public CalculatorService()
         {
             currrentMode = Mode.DEC;
-            Expression = new DecimalExpression(ExpressionId, new Dec(0), new Dec(0));
+            Expression = new DecimalExpression(ExpressionId, new Dec("0"), new Dec("0"));
             Expressions = new List<ExpressionBase>();
         }
 

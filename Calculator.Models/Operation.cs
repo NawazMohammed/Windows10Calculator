@@ -4,6 +4,8 @@ namespace Calculator.Models
 {
     using System;
 
+    using Calculator.Models.Numbers;
+
     public class Operation
     {
         public INumber RhsNumber { get; set; }

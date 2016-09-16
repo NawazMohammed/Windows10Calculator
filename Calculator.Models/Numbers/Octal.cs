@@ -1,8 +1,7 @@
-﻿using System;
-using Calculator.Models.Bases;
-
-namespace Calculator.Models
+﻿namespace Calculator.Models.Numbers
 {
+    using System;
+
     public class Octal: Number
     {
         private  int value;
@@ -16,11 +15,6 @@ namespace Calculator.Models
         {
             value = Convert.ToInt32(val, 8);
             tempValue = val;
-        }
-
-        public Octal(int value)
-        {
-            this.value = value;
         }
 
         public override void AddCharacter(char character)

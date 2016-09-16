@@ -4,6 +4,7 @@ namespace Calculator.Models.Expressions
 {
     using System.ComponentModel;
 
+    using Calculator.Models.Numbers;
     using Calculator.Models.Operators;
     public class OctalExpression : ExpressionBase
     {

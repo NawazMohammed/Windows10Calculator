@@ -4,6 +4,8 @@ namespace Calculator.Models.Expressions
 {
     using System.ComponentModel;
 
+    using Calculator.Models.Numbers;
+
     using Operators;
 
     public class DecimalExpression : ExpressionBase

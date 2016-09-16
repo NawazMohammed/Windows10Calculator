@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 
 namespace Calculator.Contracts
-{  
+{
+    using Calculator.Models.Expressions;
+
     public interface ICalculatorService
     {
         Mode CurrentMode { get; set; }

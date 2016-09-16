@@ -1,8 +1,7 @@
-﻿using System;
-using Calculator.Models.Bases;
-
-namespace Calculator.Models
+﻿namespace Calculator.Models.Numbers
 {
+    using System;
+
     public class Hex:Number
     {
         private  int value;
@@ -12,13 +11,12 @@ namespace Calculator.Models
             this.value = Convert.ToInt32(value);
             tempValue = Convert.ToString(this.value, 16);
         }
-
-        public Hex(int value)
+        public Hex(string value)
         {
-            this.value = value;
+            this.value = Convert.ToInt32(value, 16);
+            tempValue = value;
         }
 
-       
         public override void AddCharacter(char character)
         {
             if (tempValue.Length > 64)
@@ -39,11 +37,7 @@ namespace Calculator.Models
             value = value = Convert.ToInt32(tempValue, 16);
         }
 
-        public Hex(string b)
-        {
-            value = Convert.ToInt32(b, 16);
-            tempValue = b;
-        }
+      
 
         public override decimal ToDecimal()
         {

@@ -1,9 +1,7 @@
-﻿using System;
-using Calculator.Models.Bases;
-
-namespace Calculator.Models
+﻿namespace Calculator.Models.Numbers
 {
-   
+    using System;
+
     public class Dec:Number
     {
         private decimal value;
