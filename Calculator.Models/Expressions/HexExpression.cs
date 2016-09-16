@@ -108,23 +108,7 @@ namespace Calculator.Models.Expressions
                     throw new InvalidOperationException();
             }
         }
-        protected  void UpdateDisplay(char character)
-        {
-            var display = CurrentOperation.RhsNumber.ToDisplayString();
-            if (display.Length > 64)
-                return;
-
-            if (display == "0" && character == '0')
-                return;
-
-            if (display == "0" && character != '0')
-                display = "";
-
-            display = display + character;
-
-            CurrentOperation.RhsNumber = GetNumber(display);
-
-        }
+      
         protected override bool IsValidOperatorCommand(Command command)
         {
             switch (command)

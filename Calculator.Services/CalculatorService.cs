@@ -7,8 +7,6 @@ using Calculator.Models.Expressions;
 namespace Calculator.Services
 {
     using System;
-
-    using Calculator.Common;
     using Calculator.Models.Numbers;
 
     public class CalculatorService : ICalculatorService
