@@ -21,56 +21,56 @@ namespace Calculator.Models.Expressions
             return new BinaryNumber(value);
         }
 
-        protected override IOperator GetOperator(Command command)
+        protected override IOperator GetOperator(OperatorCommand command)
         {
             switch (command)
             {
-                case Command.PLUS:
+                case OperatorCommand.PLUS:
                     return new Add();
-                case Command.MINUS:
+                case OperatorCommand.MINUS:
                     return new Substract();
-                case Command.MULTIPLY:
+                case OperatorCommand.MULTIPLY:
                     return new Multiply();
-                case Command.DIVIDE:
+                case OperatorCommand.DIVIDE:
                     return new Divide();
-                case Command.EQUAL:
+                case OperatorCommand.EQUALS:
                     return new Equals();
                 default:
                     throw new InvalidOperationException();
             }
         }
-        protected override bool IsValidNumericCommand(Command command)
+        protected override bool IsValidNumericCommand(NumericCommand command)
         {
             switch (command)
             {
-                case Command.ZERO:
-                case Command.ONE:
+                case NumericCommand.ZERO:
+                case NumericCommand.ONE:
                     return true;
                 default:
                     throw new InvalidEnumArgumentException();
             }
         }
-        protected override char GetNumericCommandCharacter(Command command)
+        protected override char GetNumericCommandCharacter(NumericCommand command)
         {
             switch (command)
             {
-                case Command.ZERO:
+                case NumericCommand.ZERO:
                     return '0';
-                case Command.ONE:
+                case NumericCommand.ONE:
                     return '1';
                 default:
                     throw new InvalidEnumArgumentException();
             }
         }
     
-        protected override bool IsValidOperatorCommand(Command command)
+        protected override bool IsValidOperatorCommand(OperatorCommand command)
         {
             switch (command)
             {
-                case Command.PLUS:
-                case Command.MINUS:
-                case Command.MULTIPLY:
-                case Command.DIVIDE:
+                case OperatorCommand.PLUS:
+                case OperatorCommand.MINUS:
+                case OperatorCommand.MULTIPLY:
+                case OperatorCommand.DIVIDE:
                     return true;
                 default:
                     return false;

@@ -22,76 +22,76 @@ namespace Calculator.Models.Expressions
             return new OctalNumber(value);
         }
 
-        protected override IOperator GetOperator(Command command)
+        protected override IOperator GetOperator(OperatorCommand command)
         {
             switch (command)
             {
-                case Command.PLUS:
+                case OperatorCommand.PLUS:
                     return new Add();
-                case Command.MINUS:
+                case OperatorCommand.MINUS:
                     return new Substract();
-                case Command.MULTIPLY:
+                case OperatorCommand.MULTIPLY:
                     return new Multiply();
-                case Command.DIVIDE:
+                case OperatorCommand.DIVIDE:
                     return new Divide();
-                case Command.EQUAL:
+                case OperatorCommand.EQUALS:
                     return new Equals();
                 default:
                     throw new InvalidOperationException();
             }
         }
-        protected override bool IsValidNumericCommand(Command command)
+        protected override bool IsValidNumericCommand(NumericCommand command)
         {
             switch (command)
             {
-                case Command.ZERO:
-                case Command.ONE:
-                case Command.TWO:
-                case Command.THREE:
-                case Command.FOUR:
-                case Command.FIVE:
-                case Command.SIX:
-                case Command.SEVEN:
+                case NumericCommand.ZERO:
+                case NumericCommand.ONE:
+                case NumericCommand.TWO:
+                case NumericCommand.THREE:
+                case NumericCommand.FOUR:
+                case NumericCommand.FIVE:
+                case NumericCommand.SIX:
+                case NumericCommand.SEVEN:
                     return true;
                 default:
                     throw new InvalidEnumArgumentException();
             }
         }
-        protected override char GetNumericCommandCharacter(Command command)
+        protected override char GetNumericCommandCharacter(NumericCommand command)
         {
             switch (command)
             {
-                case Command.ZERO:
+                case NumericCommand.ZERO:
                     return '0';
-                case Command.ONE:
+                case NumericCommand.ONE:
                     return '1';
-                case Command.TWO:
+                case NumericCommand.TWO:
                     return '2';
-                case Command.THREE:
+                case NumericCommand.THREE:
                     return '3';
-                case Command.FOUR:
+                case NumericCommand.FOUR:
                     return '4';
-                case Command.FIVE:
+                case NumericCommand.FIVE:
                     return '5';
-                case Command.SIX:
+                case NumericCommand.SIX:
                     return '6';
-                case Command.SEVEN:
+                case NumericCommand.SEVEN:
                     return '7';
-                case Command.EIGHT:
+                case NumericCommand.EIGHT:
                     return '8';
                 default:
                     throw new InvalidOperationException();
             }
         }
       
-        protected override bool IsValidOperatorCommand(Command command)
+        protected override bool IsValidOperatorCommand(OperatorCommand command)
         {
             switch (command)
             {
-                case Command.PLUS:
-                case Command.MINUS:
-                case Command.MULTIPLY:
-                case Command.DIVIDE:
+                case OperatorCommand.PLUS:
+                case OperatorCommand.MINUS:
+                case OperatorCommand.MULTIPLY:
+                case OperatorCommand.DIVIDE:
                     return true;
                 default:
                     return false;

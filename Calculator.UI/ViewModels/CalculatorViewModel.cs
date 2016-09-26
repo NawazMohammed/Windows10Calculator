@@ -19,7 +19,7 @@ namespace Calculator.UI.ViewModels
         private ICommand expressionClickCommand;
         private bool _canExecute = true;
         public Mode Mode { get; set; }
-        public Command Command { get; set; }
+        public NumericCommand Command { get; set; }
 
         public CalculatorViewModel(ICalculatorService calculatorService)
         {
@@ -36,14 +36,14 @@ namespace Calculator.UI.ViewModels
 
         private void OnNumericCommandClick(object command)
         {
-            var com = command.ToEnum<Command>();
+            var com = command.ToEnum<NumericCommand>();
             calculatorService.OnNumericCommand(com);
             Result = calculatorService.Expression.Display;
         }
 
         private void OnOperatorCommandClick(object command)
         {
-            var com = command.ToEnum<Command>();
+            var com = command.ToEnum<OperatorCommand>();
             calculatorService.OnOperatorCommand(com);
             Result = calculatorService.Expression.Display;
             Expression = calculatorService.Expression.ExpressionString;
@@ -51,7 +51,7 @@ namespace Calculator.UI.ViewModels
 
         private void OnControlCommandClick(object command)
         {
-            var com = command.ToEnum<Command>();
+            var com = command.ToEnum<ControlCommand>();
             calculatorService.OnControlCommand(com);
             Result = calculatorService.Expression.Display;
             Expression = calculatorService.Expression.ExpressionString;

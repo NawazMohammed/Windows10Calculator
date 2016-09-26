@@ -83,45 +83,45 @@ namespace Calculator.Services
             }
         }
 
-        public void OnNumericCommand(Command command)
+        public void OnNumericCommand(NumericCommand command)
         {
             Expression.UpdateNumber(command);
         }
 
-        public void OnOperatorCommand(Command command)
+        public void OnOperatorCommand(OperatorCommand command)
         {
             Expression.ExecutePreviousOperation();
             Expression.StartNewOperation(command);
         }
 
-        public void OnControlCommand(Command command)
+        public void OnControlCommand(ControlCommand command)
         {
             if (!IsValidControlCommand(command)) return;
 
             switch (command)
             {
-                case Command.DELETE:
+                case ControlCommand.DELETE:
                     Expression.DeleteLastCharacter();
                     break;
-                case Command.EQUAL:
+                case ControlCommand.EQUAL:
                     Expression.ExecutePreviousOperation();
                     Expression.Complete();
                     Expressions.Add(Expression);
                     ResetExpression("0", Expression.Display);
                     break;
-                case Command.CLEAR:
+                case ControlCommand.CLEAR:
                     ResetExpression("0", "0");
                     break;
             }
         }
 
-        private static bool IsValidControlCommand(Command command)
+        private static bool IsValidControlCommand(ControlCommand command)
         {
             switch (command)
             {
-                case Command.CLEAR:
-                case Command.DELETE:
-                case Command.EQUAL:
+                case ControlCommand.CLEAR:
+                case ControlCommand.DELETE:
+                case ControlCommand.EQUAL:
                     return true;
                 default:
                     return false;

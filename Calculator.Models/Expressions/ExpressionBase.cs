@@ -46,7 +46,7 @@
             return strin.TrimStart(' ');
         }
 
-        public void UpdateNumber(Command command)
+        public void UpdateNumber(NumericCommand command)
         {
             if (!IsValidNumericCommand(command))
                 return;
@@ -61,7 +61,7 @@
             Display = CurrentOperation.RhsNumber.ToDisplayString();
         }
 
-        public void StartNewOperation(Command command)
+        public void StartNewOperation(OperatorCommand command)
         {
             if (!IsValidOperatorCommand(command))
                 return;
@@ -72,16 +72,16 @@
 
         public void Complete()
         {
-            var opr = GetOperator(Command.EQUAL);
+            var opr = GetOperator(OperatorCommand.EQUALS);
             CurrentOperation = new Operation(ExecutedValue, opr);
         }
 
         protected abstract INumber GetNumber(string value);
         protected abstract INumber GetNumber(decimal value);
-        protected abstract bool IsValidNumericCommand(Command command);
-        protected abstract char GetNumericCommandCharacter(Command command);
-        protected abstract bool IsValidOperatorCommand(Command command);
-        protected abstract IOperator GetOperator(Command command);
+        protected abstract bool IsValidNumericCommand(NumericCommand command);
+        protected abstract char GetNumericCommandCharacter(NumericCommand command);
+        protected abstract bool IsValidOperatorCommand(OperatorCommand command);
+        protected abstract IOperator GetOperator(OperatorCommand command);
         public void DeleteLastCharacter()
         {
             CurrentOperation.RhsNumber.DeleteLastCharacter();

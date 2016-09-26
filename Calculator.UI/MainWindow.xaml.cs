@@ -30,62 +30,62 @@ namespace Calculator.UI
         private void SetButtonCommands()
         {
             buttonA.Command = CalculatorViewModel.NumericCommandClick;
-            buttonA.CommandParameter = Command.A;
+            buttonA.CommandParameter = NumericCommand.A;
             buttonB.Command = CalculatorViewModel.NumericCommandClick;
-            buttonB.CommandParameter = Command.B;
+            buttonB.CommandParameter = NumericCommand.B;
             buttonC.Command = CalculatorViewModel.NumericCommandClick;
-            buttonC.CommandParameter = Command.C;
+            buttonC.CommandParameter = NumericCommand.C;
             buttonD.Command = CalculatorViewModel.NumericCommandClick;
-            buttonD.CommandParameter = Command.D;
+            buttonD.CommandParameter = NumericCommand.D;
             buttonE.Command = CalculatorViewModel.NumericCommandClick;
-            buttonE.CommandParameter = Command.E;
+            buttonE.CommandParameter = NumericCommand.E;
             buttonF.Command = CalculatorViewModel.NumericCommandClick;
-            buttonF.CommandParameter = Command.F;
+            buttonF.CommandParameter = NumericCommand.F;
             button0.Command = CalculatorViewModel.NumericCommandClick;
-            button0.CommandParameter = Command.ZERO;
+            button0.CommandParameter = NumericCommand.ZERO;
             button1.Command = CalculatorViewModel.NumericCommandClick;
-            button1.CommandParameter = Command.ONE;
+            button1.CommandParameter = NumericCommand.ONE;
             button2.Command = CalculatorViewModel.NumericCommandClick;
-            button2.CommandParameter = Command.TWO;
+            button2.CommandParameter = NumericCommand.TWO;
             button3.Command = CalculatorViewModel.NumericCommandClick;
-            button3.CommandParameter = Command.THREE;
+            button3.CommandParameter = NumericCommand.THREE;
             button4.Command = CalculatorViewModel.NumericCommandClick;
-            button4.CommandParameter = Command.FOUR;
+            button4.CommandParameter = NumericCommand.FOUR;
             button5.Command = CalculatorViewModel.NumericCommandClick;
-            button5.CommandParameter = Command.FIVE;
+            button5.CommandParameter = NumericCommand.FIVE;
             button6.Command = CalculatorViewModel.NumericCommandClick;
-            button6.CommandParameter = Command.SIX;
+            button6.CommandParameter = NumericCommand.SIX;
             button7.Command = CalculatorViewModel.NumericCommandClick;
-            button7.CommandParameter = Command.SEVEN;
+            button7.CommandParameter = NumericCommand.SEVEN;
             button8.Command = CalculatorViewModel.NumericCommandClick;
-            button8.CommandParameter = Command.EIGHT;
+            button8.CommandParameter = NumericCommand.EIGHT;
             button9.Command = CalculatorViewModel.NumericCommandClick;
-            button9.CommandParameter = Command.NINE;
+            button9.CommandParameter = NumericCommand.NINE;
             buttonPoint.Command = CalculatorViewModel.NumericCommandClick;
-            buttonPoint.CommandParameter = Command.POINT;
+            buttonPoint.CommandParameter = NumericCommand.POINT;
             
 
             buttonRoot.Command = CalculatorViewModel.OperatorCommandClick;
-            buttonRoot.CommandParameter = Command.ROOT;
+            buttonRoot.CommandParameter = OperatorCommand.ROOT;
             buttonPower.Command = CalculatorViewModel.OperatorCommandClick;
-            buttonPower.CommandParameter = Command.POWER;
+            buttonPower.CommandParameter = OperatorCommand.POWER;
             buttonPlus.Command = CalculatorViewModel.OperatorCommandClick;
-            buttonPlus.CommandParameter = Command.PLUS;
+            buttonPlus.CommandParameter = OperatorCommand.PLUS;
             buttonMinus.Command = CalculatorViewModel.OperatorCommandClick;
-            buttonMinus.CommandParameter = Command.MINUS;
+            buttonMinus.CommandParameter = OperatorCommand.MINUS;
             buttonMultiply.Command = CalculatorViewModel.OperatorCommandClick;
-            buttonMultiply.CommandParameter = Command.MULTIPLY;
+            buttonMultiply.CommandParameter = OperatorCommand.MULTIPLY;
             buttonDivide.Command = CalculatorViewModel.OperatorCommandClick;
-            buttonDivide.CommandParameter = Command.DIVIDE;
+            buttonDivide.CommandParameter = OperatorCommand.DIVIDE;
 
             buttonEquals.Command = CalculatorViewModel.ControlCommandClick;
-            buttonEquals.CommandParameter = Command.EQUAL;
+            buttonEquals.CommandParameter = ControlCommand.EQUAL;
 
             buttonClear.Command = CalculatorViewModel.ControlCommandClick;
-            buttonClear.CommandParameter = Command.CLEAR;
+            buttonClear.CommandParameter = ControlCommand.CLEAR;
 
             buttonDelete.Command = CalculatorViewModel.ControlCommandClick;
-            buttonDelete.CommandParameter = Command.DELETE;
+            buttonDelete.CommandParameter = ControlCommand.DELETE;
 
 
 

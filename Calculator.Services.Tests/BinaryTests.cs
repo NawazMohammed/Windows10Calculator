@@ -36,11 +36,11 @@ namespace Calculator.Services.Tests
         public void WhenDisplayIsAtZeroAndANumberIsPressedThenDisplayIsUpdated()
         {
             //Arrange 
-            calculatorService.OnNumericCommand(Command.ZERO);
+            calculatorService.OnNumericCommand(NumericCommand.ZERO);
 
             //Act
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
 
             //Assert
             Assert.That(calculatorService.Expression.Display, Is.EqualTo("11"));
@@ -50,11 +50,11 @@ namespace Calculator.Services.Tests
         public void WhenDisplayIsAtZeroAndANumberIsPressedThenExpressionStringIsEmpty()
         {
             //Arrange 
-            calculatorService.OnNumericCommand(Command.ZERO);
+            calculatorService.OnNumericCommand(NumericCommand.ZERO);
 
             //Act
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
 
             //Assert
             Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo(""));
@@ -64,10 +64,10 @@ namespace Calculator.Services.Tests
         public void WhenDisplayIsAtZeroAndAOperatorIsPressedThenExpressionStringIsUpdated()
         {
             //Arrange 
-            calculatorService.OnNumericCommand(Command.ZERO);
+            calculatorService.OnNumericCommand(NumericCommand.ZERO);
 
             //Act
-            calculatorService.OnOperatorCommand(Command.PLUS);
+            calculatorService.OnOperatorCommand(OperatorCommand.PLUS);
 
             //Assert
             Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo("0 +"));
@@ -77,11 +77,11 @@ namespace Calculator.Services.Tests
         public void WhenDisplayIsAtSomeNumberAndANumberIsPressedThenDisplayIsUpdated()
         {
             //Arrange 
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ZERO);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ZERO);
 
             //Act
-            calculatorService.OnNumericCommand(Command.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
 
             //Assert
             Assert.That(calculatorService.Expression.Display, Is.EqualTo("101"));
@@ -91,12 +91,12 @@ namespace Calculator.Services.Tests
         public void WhenDisplayIsAtSomeNumberAndADeleteIsPressedThenDisplayIsUpdated()
         {
             //Arrange 
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ZERO);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ZERO);
 
             //Act
-            calculatorService.OnControlCommand(Command.DELETE);
+            calculatorService.OnControlCommand(ControlCommand.DELETE);
 
             //Assert
             Assert.That(calculatorService.Expression.Display, Is.EqualTo("11"));
@@ -106,12 +106,12 @@ namespace Calculator.Services.Tests
         public void WhenDisplayIsAtSomeNumberAndAOperatorIsPressedThenExpressionStringIsUpdated()
         {
             //Arrange
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ZERO);
-            calculatorService.OnNumericCommand(Command.ZERO);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ZERO);
+            calculatorService.OnNumericCommand(NumericCommand.ZERO);
 
             //Act
-            calculatorService.OnOperatorCommand(Command.PLUS);
+            calculatorService.OnOperatorCommand(OperatorCommand.PLUS);
 
             //Assert
             Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo("100 +"));
@@ -121,12 +121,12 @@ namespace Calculator.Services.Tests
         public void WhenDisplayIsAtSomeNumberAndAOperatorIsPressedAndADifferentOperatorIsPressedThenExpressionStringIsUpdated()
         {
             //Arrange
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ZERO);
-            calculatorService.OnNumericCommand(Command.ZERO);
-            calculatorService.OnOperatorCommand(Command.PLUS);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ZERO);
+            calculatorService.OnNumericCommand(NumericCommand.ZERO);
+            calculatorService.OnOperatorCommand(OperatorCommand.PLUS);
             //Act
-            calculatorService.OnOperatorCommand(Command.MINUS);
+            calculatorService.OnOperatorCommand(OperatorCommand.MINUS);
 
             //Assert
             Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo("100 -"));
@@ -136,13 +136,13 @@ namespace Calculator.Services.Tests
         public void WhenAOperationExistsAndAOperatorIsPressedThenExpressionIsExecuted()
         {
             //Arrange
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ZERO);
-            calculatorService.OnOperatorCommand(Command.PLUS);
-            calculatorService.OnNumericCommand(Command.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ZERO);
+            calculatorService.OnOperatorCommand(OperatorCommand.PLUS);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
 
             //Act
-            calculatorService.OnOperatorCommand(Command.PLUS);
+            calculatorService.OnOperatorCommand(OperatorCommand.PLUS);
 
             //Assert
             Assert.That(calculatorService.Expression.Display, Is.EqualTo("11"));
@@ -154,15 +154,15 @@ namespace Calculator.Services.Tests
         public void WhenAOperationExistsAndTwoDifferentOperatorArePressedThenLastOperatorIsConsidered()
         {
             //Arrange
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnOperatorCommand(Command.PLUS);
-            calculatorService.OnNumericCommand(Command.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnOperatorCommand(OperatorCommand.PLUS);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
 
 
             //Act
-            calculatorService.OnOperatorCommand(Command.PLUS);
-            calculatorService.OnOperatorCommand(Command.MINUS);
+            calculatorService.OnOperatorCommand(OperatorCommand.PLUS);
+            calculatorService.OnOperatorCommand(OperatorCommand.MINUS);
 
             //Assert
             Assert.That(calculatorService.Expression.Display, Is.EqualTo("100"));
@@ -174,15 +174,15 @@ namespace Calculator.Services.Tests
         public void WhenAOperationExistsAndEqualsIsPressedThenNewExpressionIsStartedWithTotal()
         {
             //Arrange
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnOperatorCommand(Command.PLUS);
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ZERO);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnOperatorCommand(OperatorCommand.PLUS);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ZERO);
 
             //Act
-            calculatorService.OnControlCommand(Command.EQUAL);
+            calculatorService.OnControlCommand(ControlCommand.EQUAL);
 
             //Assert
             Assert.That(calculatorService.Expression.Display, Is.EqualTo("1001"));
@@ -194,16 +194,16 @@ namespace Calculator.Services.Tests
         public void WhenEqualsIsExecutedAndANewNumberIsPressedThenDisplayShouldBeNewNumber()
         {
             //Arrange
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnOperatorCommand(Command.PLUS);
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnControlCommand(Command.EQUAL);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnOperatorCommand(OperatorCommand.PLUS);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnControlCommand(ControlCommand.EQUAL);
 
             //Act
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
 
             //Assert
             Assert.That(calculatorService.Expression.Display, Is.EqualTo("11"));
@@ -214,13 +214,13 @@ namespace Calculator.Services.Tests
         public void WhenAOperationExistsAndEqualsIsPressedThenExpressionsListIsUpdated()
         {
             //Arrange
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ZERO);
-            calculatorService.OnOperatorCommand(Command.PLUS);
-            calculatorService.OnNumericCommand(Command.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ZERO);
+            calculatorService.OnOperatorCommand(OperatorCommand.PLUS);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
 
             //Act
-            calculatorService.OnControlCommand(Command.EQUAL);
+            calculatorService.OnControlCommand(ControlCommand.EQUAL);
 
             //Assert
             Assert.That(calculatorService.Expressions.Count, Is.EqualTo(1));
@@ -230,10 +230,10 @@ namespace Calculator.Services.Tests
         public void WhenAnExpressionIsSelectedItsPressedThenExpressionsListIsUpdated()
         {
             //Arrange
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnOperatorCommand(Command.PLUS);
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnControlCommand(Command.EQUAL);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnOperatorCommand(OperatorCommand.PLUS);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnControlCommand(ControlCommand.EQUAL);
 
             //Act
             var expre = calculatorService.Expressions.First();
@@ -247,13 +247,13 @@ namespace Calculator.Services.Tests
         public void WhenAOperationExistsAndEqualsIsPressedThenNewExpressionIsCreated()
         {
             //Arrange
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnOperatorCommand(Command.PLUS);
-            calculatorService.OnNumericCommand(Command.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnOperatorCommand(OperatorCommand.PLUS);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
 
             //Act
-            calculatorService.OnControlCommand(Command.EQUAL);
+            calculatorService.OnControlCommand(ControlCommand.EQUAL);
 
             //Assert
             Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo(""));
@@ -264,13 +264,13 @@ namespace Calculator.Services.Tests
         public void WhenAOperationExistsAndClearIsPressedThenTheExpressionIsCleared()
         {
             //Arrange
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnNumericCommand(Command.ONE);
-            calculatorService.OnOperatorCommand(Command.PLUS);
-            calculatorService.OnNumericCommand(Command.ZERO);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnNumericCommand(NumericCommand.ONE);
+            calculatorService.OnOperatorCommand(OperatorCommand.PLUS);
+            calculatorService.OnNumericCommand(NumericCommand.ZERO);
 
             //Act
-            calculatorService.OnControlCommand(Command.CLEAR);
+            calculatorService.OnControlCommand(ControlCommand.CLEAR);
 
             //Assert
             Assert.That(calculatorService.Expression.Display, Is.EqualTo("0"));

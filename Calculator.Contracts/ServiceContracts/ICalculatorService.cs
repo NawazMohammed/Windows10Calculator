@@ -13,11 +13,11 @@ namespace Calculator.Contracts
 
         ExpressionBase Expression { get; }
 
-        void OnNumericCommand(Command command);
+        void OnNumericCommand(NumericCommand command);
 
-        void OnOperatorCommand(Command command);
+        void OnOperatorCommand(OperatorCommand command);
 
-        void OnControlCommand(Command command);
+        void OnControlCommand(ControlCommand command);
 
         string GetResultInFormat(Mode mode);
     }

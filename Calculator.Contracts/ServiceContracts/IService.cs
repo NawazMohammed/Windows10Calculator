@@ -11,11 +11,11 @@ namespace Calculator.Contracts.ServiceContracts
 
         ExpressionBase Expression { get; }
 
-        void OnNumericCommand(Command command);
+        void OnNumericCommand(NumericCommand command);
 
-        void OnOperatorCommand(Command command);
+        void OnOperatorCommand(NumericCommand command);
 
-        void OnControlCommand(Command command);
+        void OnControlCommand(NumericCommand command);
     }
 
     public interface IServiceFactory

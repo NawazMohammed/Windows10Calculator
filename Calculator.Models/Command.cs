@@ -1,7 +1,8 @@
 ﻿namespace Calculator.Models
 {
-    public enum Command
+    public enum NumericCommand
     {
+        POINT,
         ZERO,
         ONE,
         TWO,
@@ -17,16 +18,28 @@
         C,
         D,
         E,
-        F,
+        F  
+    }
+
+    public enum ControlCommand
+    {       
+        DELETE,
+        CLEAR,
+        EQUAL
+    }
+
+    public enum OperatorCommand
+    {
         ROOT,
         POWER,
         PLUS,
         MINUS,
         MULTIPLY,
         DIVIDE,
-        POINT,
-        EQUAL,
-        DELETE,
-        CLEAR,
+        EQUALS
+
     }
+
+
+
 }

@@ -32,10 +32,10 @@
             //(see setup)
 
             //Act
-            calculatorViewModel.NumericCommandClick.Execute(Command.ONE);
+            calculatorViewModel.NumericCommandClick.Execute(NumericCommand.ONE);
 
             //Assert
-            A.CallTo(()=>calculatorService.OnNumericCommand(A<Command>._)).MustHaveHappened(Repeated.Exactly.Once);
+            A.CallTo(()=>calculatorService.OnNumericCommand(A<NumericCommand>._)).MustHaveHappened(Repeated.Exactly.Once);
         }
 
 
@@ -46,10 +46,10 @@
             //(see setup)
 
             //Act
-            calculatorViewModel.OperatorCommandClick.Execute(Command.PLUS);
+            calculatorViewModel.OperatorCommandClick.Execute(OperatorCommand.PLUS);
 
             //Assert
-            A.CallTo(() => calculatorService.OnOperatorCommand(A<Command>._)).MustHaveHappened(Repeated.Exactly.Once);
+            A.CallTo(() => calculatorService.OnOperatorCommand(A<OperatorCommand>._)).MustHaveHappened(Repeated.Exactly.Once);
         }
 
         [Test]
@@ -59,10 +59,10 @@
             //(see setup)
 
             //Act
-            calculatorViewModel.ControlCommandClick.Execute(Command.EQUAL);
+            calculatorViewModel.ControlCommandClick.Execute(ControlCommand.EQUAL);
 
             //Assert
-            A.CallTo(() => calculatorService.OnControlCommand(A<Command>._)).MustHaveHappened(Repeated.Exactly.Once);
+            A.CallTo(() => calculatorService.OnControlCommand(A<ControlCommand>._)).MustHaveHappened(Repeated.Exactly.Once);
         }
     }
 }
