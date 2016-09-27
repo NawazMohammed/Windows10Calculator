@@ -1,16 +1,17 @@
-﻿namespace Calculator.Models.Numbers
-{
-    using System;
+﻿using System;
 
-    public class OctalNumber: NumberBase
+namespace Calculator.Models.Numbers
+{ 
+    public class OctalNumber : NumberBase
     {
-        private  int value;
+        private int value;
 
         public OctalNumber(decimal value)
         {
             this.value = Convert.ToInt32(value);
             TempValue = Convert.ToString(this.value, 8);
         }
+
         public OctalNumber(string val)
         {
             value = Convert.ToInt32(val, 8);
@@ -48,9 +49,4 @@
             return IsLocked ? Convert.ToString(value, 8) : TempValue;
         }
     }
-
-   
-
-
-
 }

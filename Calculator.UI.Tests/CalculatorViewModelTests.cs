@@ -2,11 +2,15 @@
 {
     using Calculator.Contracts;
     using Calculator.Models;
+    using Calculator.Models.Commands;
+    using Calculator.Models.Operators;
     using Calculator.UI.ViewModels;
 
     using FakeItEasy;
 
     using NUnit.Framework;
+
+    using A = FakeItEasy.A;
 
     [TestFixture]
     public class GivenACalculatorViewModelWithACalculatorService
@@ -16,13 +20,16 @@
 
         private ICalculatorService calculatorService;
 
+        private ICommandFactory commandFactory;
+
 
         [SetUp]
         public void SetUp()
         {
             //Arrange
             calculatorService = A.Fake<ICalculatorService>();
-            calculatorViewModel = new CalculatorViewModel(calculatorService);
+            commandFactory = A.Fake<ICommandFactory>();
+            calculatorViewModel = new CalculatorViewModel(calculatorService, commandFactory);
         }
 
         [Test]
@@ -32,10 +39,10 @@
             //(see setup)
 
             //Act
-            calculatorViewModel.NumericCommandClick.Execute(NumericCommand.ONE);
+            calculatorViewModel.NumericCommandClick.Execute(NumericCommandType.ONE);
 
             //Assert
-            A.CallTo(()=>calculatorService.OnNumericCommand(A<NumericCommand>._)).MustHaveHappened(Repeated.Exactly.Once);
+            A.CallTo(()=>calculatorService.OnNumericCommand(A<INumericCommand>._)).MustHaveHappened(Repeated.Exactly.Once);
         }
 
 
@@ -46,10 +53,10 @@
             //(see setup)
 
             //Act
-            calculatorViewModel.OperatorCommandClick.Execute(OperatorCommand.PLUS);
+            calculatorViewModel.OperatorCommandClick.Execute(OperatorCommandType.PLUS);
 
             //Assert
-            A.CallTo(() => calculatorService.OnOperatorCommand(A<OperatorCommand>._)).MustHaveHappened(Repeated.Exactly.Once);
+            A.CallTo(() => calculatorService.OnOperatorCommand(A<IOperator>._)).MustHaveHappened(Repeated.Exactly.Once);
         }
 
         [Test]

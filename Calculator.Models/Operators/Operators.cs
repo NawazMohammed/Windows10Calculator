@@ -9,7 +9,7 @@ namespace Calculator.Models.Operators
         string ToDisplayString();
     }
 
-    public class Add : IOperator
+    public class Plus : IOperator
     {
         public decimal Execute(decimal x, decimal y)
         {
@@ -23,7 +23,7 @@ namespace Calculator.Models.Operators
     }
 
 
-    public class Substract : IOperator
+    public class Minus : IOperator
     {
         public decimal Execute(decimal x, decimal y)
         {

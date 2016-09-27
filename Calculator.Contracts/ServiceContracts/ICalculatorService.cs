@@ -3,19 +3,21 @@ using System.Collections.Generic;
 
 namespace Calculator.Contracts
 {
+    using Calculator.Models.Commands;
     using Calculator.Models.Expressions;
+    using Calculator.Models.Operators;
 
     public interface ICalculatorService
     {
         Mode CurrentMode { get; set; }
 
-        List<ExpressionBase> Expressions { get; }
+        List<Expression> Expressions { get; }
 
-        ExpressionBase Expression { get; }
+        Expression Expression { get; }
 
-        void OnNumericCommand(NumericCommand command);
+        void OnNumericCommand(INumericCommand command);
 
-        void OnOperatorCommand(OperatorCommand command);
+        void OnOperatorCommand(IOperator opr);
 
         void OnControlCommand(ControlCommand command);
 

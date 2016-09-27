@@ -8,24 +8,29 @@ using System.Windows.Input;
 
 namespace Calculator.UI.ViewModels
 {
+    using Calculator.Models.Commands;
     using Calculator.Models.Expressions;
 
     public class CalculatorViewModel: INotifyPropertyChanged
     {
         private readonly ICalculatorService calculatorService;
+
+        private readonly ICommandFactory commandFactory;
+
         private ICommand clickCommand;
         private ICommand operationClickCommand;
         private ICommand controlClickCommand;
         private ICommand expressionClickCommand;
         private bool _canExecute = true;
         public Mode Mode { get; set; }
-        public NumericCommand Command { get; set; }
+        public NumericCommandType Command { get; set; }
 
-        public CalculatorViewModel(ICalculatorService calculatorService)
+        public CalculatorViewModel(ICalculatorService calculatorService, ICommandFactory commandFactory)
         {
             this.calculatorService = calculatorService;
+            this.commandFactory = commandFactory;
         }
-        
+
         public ICommand NumericCommandClick => clickCommand ?? (clickCommand = new ClickCommand(OnNumericCommandClick, _canExecute));
 
         public ICommand OperatorCommandClick => operationClickCommand ?? (operationClickCommand = new ClickCommand(OnOperatorCommandClick, _canExecute));
@@ -36,15 +41,17 @@ namespace Calculator.UI.ViewModels
 
         private void OnNumericCommandClick(object command)
         {
-            var com = command.ToEnum<NumericCommand>();
-            calculatorService.OnNumericCommand(com);
+            var com = command.ToEnum<NumericCommandType>();
+            var numericCommand = commandFactory.GetNumericCommand(com);
+            calculatorService.OnNumericCommand(numericCommand);
             Result = calculatorService.Expression.Display;
         }
 
         private void OnOperatorCommandClick(object command)
         {
-            var com = command.ToEnum<OperatorCommand>();
-            calculatorService.OnOperatorCommand(com);
+            var com = command.ToEnum<OperatorCommandType>();
+            var opr = commandFactory.GetOperator(com);
+            calculatorService.OnOperatorCommand(opr);
             Result = calculatorService.Expression.Display;
             Expression = calculatorService.Expression.ExpressionString;
         }
@@ -88,7 +95,7 @@ namespace Calculator.UI.ViewModels
 
        // private List<Expression> _expressions = new List<Expression>() { new Expression() { _display = "8", _items = new List<ExpressionItem> { new ExpressionItem() {Type = ExpressionItemType.NUMBER, ItemString ="8",NumberValue = 8 }, new ExpressionItem() { Type=ExpressionItemType.OPERATOR,OperatorValue = Command.EQUAL} } } };
 
-        public ObservableCollection<ExpressionBase> Expressions { get; } = new ObservableCollection<ExpressionBase>();
+        public ObservableCollection<Expression> Expressions { get; } = new ObservableCollection<Expression>();
 
         public string Expression
         {

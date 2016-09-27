@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Calculator.Models.Commands
 {
@@ -10,8 +6,21 @@ namespace Calculator.Models.Commands
 
     public interface ICommandFactory
     {
-        IOperator GetArithmeticOperator(OperatorCommand command);
-        char GetNumericCharacter(NumericCommand command);
-        IControlOperator GetControlOperator(ControlCommand command);
+        IOperator GetOperator(OperatorCommandType command);
+
+        INumericCommand GetNumericCommand(NumericCommandType command);
+    }
+
+    public class CommandFactory : ICommandFactory
+    {
+        public IOperator GetOperator(OperatorCommandType command)
+        {
+            throw new NotImplementedException();
+        }
+
+        public INumericCommand GetNumericCommand(NumericCommandType command)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -7,15 +7,15 @@ namespace Calculator.Contracts.ServiceContracts
 
     public interface IService
     {
-        List<ExpressionBase> Expressions { get; }
+        List<Expression> Expressions { get; }
 
-        ExpressionBase Expression { get; }
+        Expression Expression { get; }
 
-        void OnNumericCommand(NumericCommand command);
+        void OnNumericCommand(NumericCommandType command);
 
-        void OnOperatorCommand(NumericCommand command);
+        void OnOperatorCommand(NumericCommandType command);
 
-        void OnControlCommand(NumericCommand command);
+        void OnControlCommand(NumericCommandType command);
     }
 
     public interface IServiceFactory

@@ -1,6 +1,6 @@
 ﻿namespace Calculator.Models
 {
-    public enum NumericCommand
+    public enum NumericCommandType
     {
         POINT,
         ZERO,
@@ -28,7 +28,7 @@
         EQUAL
     }
 
-    public enum OperatorCommand
+    public enum OperatorCommandType
     {
         ROOT,
         POWER,

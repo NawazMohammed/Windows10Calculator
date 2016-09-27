@@ -2,10 +2,11 @@
 {
     using System.Collections.Generic;
 
+    using Calculator.Models.Commands;
     using Calculator.Models.Numbers;
     using Calculator.Models.Operators;
 
-    public abstract class ExpressionBase 
+    public abstract class Expression 
     {
         public int Id { get; }
 
@@ -19,7 +20,7 @@
 
         private List<Operation> operations = new List<Operation>();
 
-        protected ExpressionBase(int id, INumber defaultNumber, INumber defaultValue)
+        protected Expression(int id, INumber defaultNumber, INumber defaultValue)
         {
             Id = id;
             CurrentOperation = new Operation(defaultValue, new NullOperator()) { RhsNumber = defaultNumber };
@@ -33,8 +34,8 @@
 
             foreach (var operation in operations)
             {
-                if(operations.Count == 1  &&  operation.Operator.GetType() == typeof(NullOperator) && CurrentOperation == null)
-                    continue;
+                //if(operations.Count == 1  &&  operation.Operator.GetType() == typeof(NullOperator) && CurrentOperation == null)
+                //    continue;
 
                 strin = strin + " " + operation.ToDisplayString();
             }
@@ -46,42 +47,29 @@
             return strin.TrimStart(' ');
         }
 
-        public void UpdateNumber(NumericCommand command)
+        public void UpdateNumber(INumericCommand command)
         {
-            if (!IsValidNumericCommand(command))
-                return;
-
-            var commandText = GetNumericCommandCharacter(command);
-
             if (CurrentOperation.RhsNumber == null)
-                CurrentOperation.RhsNumber = GetNumber(commandText.ToString());
+                CurrentOperation.RhsNumber = GetNumber(command.Value);
             else
-                CurrentOperation.RhsNumber.AddCharacter(commandText);
+                CurrentOperation.RhsNumber.AddCharacter(command.Name);
 
             Display = CurrentOperation.RhsNumber.ToDisplayString();
         }
 
-        public void StartNewOperation(OperatorCommand command)
+        public void AddOrUpdateOperator(IOperator opr)
         {
-            if (!IsValidOperatorCommand(command))
-                return;
-            var opr = GetOperator(command);
-
             CurrentOperation = new Operation(ExecutedValue, opr);
         }
 
         public void Complete()
         {
-            var opr = GetOperator(OperatorCommand.EQUALS);
+            var opr = new Equals();
             CurrentOperation = new Operation(ExecutedValue, opr);
         }
 
-        protected abstract INumber GetNumber(string value);
+        //protected abstract INumber GetNumber(string value);
         protected abstract INumber GetNumber(decimal value);
-        protected abstract bool IsValidNumericCommand(NumericCommand command);
-        protected abstract char GetNumericCommandCharacter(NumericCommand command);
-        protected abstract bool IsValidOperatorCommand(OperatorCommand command);
-        protected abstract IOperator GetOperator(OperatorCommand command);
         public void DeleteLastCharacter()
         {
             CurrentOperation.RhsNumber.DeleteLastCharacter();
@@ -97,14 +85,4 @@
             operations.Add(CurrentOperation);     
         }
     }
-
-
-
-
-
-
-
-
-
-
 }

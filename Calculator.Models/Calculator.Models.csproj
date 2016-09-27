@@ -40,10 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CommandFactory.cs" />
+    <Compile Include="Commands\DecimalCommandFactory.cs" />
+    <Compile Include="Commands\NumericCommands.cs" />
+    <Compile Include="Expressions\ExpressionFactory.cs" />
     <Compile Include="Numbers\BinaryNumber.cs" />
     <Compile Include="Numbers\NumberBase.cs" />
-    <Compile Include="Command.cs" />
-    <Compile Include="CommandType.cs" />
+    <Compile Include="Commands\Command.cs" />
     <Compile Include="Numbers\DecimalNumber.cs" />
     <Compile Include="Expressions\BinaryExpression.cs" />
     <Compile Include="Expressions\DecimalExpression.cs" />
