@@ -10,7 +10,7 @@
     {
         public int Id { get; }
 
-        protected INumber ExecutedValue;
+        private INumber executedValue;
         public Operation CurrentOperation { get; set; }
 
         public string Display { get; protected set; } 
@@ -18,14 +18,14 @@
         public string ExpressionString => ToDisplayString();
 
 
-        private List<Operation> operations = new List<Operation>();
+        private readonly List<Operation> operations = new List<Operation>();
 
         protected Expression(int id, INumber defaultNumber, INumber defaultValue)
         {
             Id = id;
             CurrentOperation = new Operation(defaultValue, new NullOperator()) { RhsNumber = defaultNumber };
-            ExecutedValue = defaultValue;
-            Display = ExecutedValue.ToDisplayString();
+            executedValue = defaultValue;
+            Display = executedValue.ToDisplayString();
         }
 
         public string ToDisplayString()
@@ -59,29 +59,29 @@
 
         public void AddOrUpdateOperator(IOperator opr)
         {
-            CurrentOperation = new Operation(ExecutedValue, opr);
+            CurrentOperation = new Operation(executedValue, opr);
         }
 
         public void Complete()
         {
             var opr = new Equals();
-            CurrentOperation = new Operation(ExecutedValue, opr);
+            CurrentOperation = new Operation(executedValue, opr);
         }
 
-        //protected abstract INumber GetNumber(string value);
         protected abstract INumber GetNumber(decimal value);
         public void DeleteLastCharacter()
         {
             CurrentOperation.RhsNumber.DeleteLastCharacter();
             Display = CurrentOperation.RhsNumber.ToDisplayString();
         }
+
         public void ExecutePreviousOperation()
         {
             if (CurrentOperation.Operator == null || CurrentOperation.RhsNumber == null || CurrentOperation.LhsNumber == null)
                 return;
 
-            ExecutedValue = CurrentOperation.Execute(GetNumber);
-            Display = ExecutedValue.ToDisplayString();
+            executedValue = CurrentOperation.Execute(GetNumber);
+            Display = executedValue.ToDisplayString();
             operations.Add(CurrentOperation);     
         }
     }

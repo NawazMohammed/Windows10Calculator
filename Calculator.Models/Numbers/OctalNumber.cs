@@ -29,8 +29,7 @@ namespace Calculator.Models.Numbers
             if (TempValue == "0" && character != '0')
                 TempValue = "";
 
-            TempValue = TempValue + character;
-            
+            TempValue = TempValue + character;       
         }
 
         public override void Lock()

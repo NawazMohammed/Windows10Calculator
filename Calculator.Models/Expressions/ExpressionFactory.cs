@@ -11,7 +11,7 @@ namespace Calculator.Models.Expressions
 
     public class ExpressionFactory : IExpressionFactory
     {
-        public Expression GetExpression(Mode mode,int id, string defaultNumber, string defaultValue)
+        public Expression GetExpression(Mode mode, int id, string defaultNumber, string defaultValue)
         {
             switch (mode)
             {

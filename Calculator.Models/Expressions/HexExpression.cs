@@ -11,7 +11,6 @@
         protected override INumber GetNumber(decimal value)
         {
             return new HexNumber(value);
-        }
-      
+        }   
     }
 }

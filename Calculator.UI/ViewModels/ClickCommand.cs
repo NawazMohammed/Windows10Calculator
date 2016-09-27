@@ -3,7 +3,6 @@ using System.Windows.Input;
 
 namespace Calculator.UI.ViewModels
 {
-
     public class ClickCommand : ICommand
     {
         private Action<object> _action;
@@ -25,6 +24,5 @@ namespace Calculator.UI.ViewModels
         {
             _action(parameter);
         }
-    }  
-   
+    }    
 }

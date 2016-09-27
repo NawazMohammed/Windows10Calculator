@@ -1,4 +1,4 @@
-﻿namespace Calculator.Models
+﻿namespace Calculator.Models.Commands
 {
     public enum NumericCommandType
     {
@@ -37,7 +37,6 @@
         MULTIPLY,
         DIVIDE,
         EQUALS
-
     }
 
 

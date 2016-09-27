@@ -12,6 +12,5 @@
         {
             return new OctalNumber(value);
         }
-
     }
 }

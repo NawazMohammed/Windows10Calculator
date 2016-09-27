@@ -4,9 +4,8 @@ namespace Calculator.Models.Commands
 {
     using Calculator.Models.Operators;
 
-    public class DecimalCommandFactory :ICommandFactory
-    {
-      
+    public class DecimalCommandFactory : ICommandFactory
+    { 
         public INumericCommand GetNumericCommand(NumericCommandType command)
         {
             switch (command)

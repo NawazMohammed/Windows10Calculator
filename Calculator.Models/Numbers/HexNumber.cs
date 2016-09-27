@@ -2,15 +2,16 @@
 {
     using System;
 
-    public class HexNumber:NumberBase
+    public class HexNumber : NumberBase
     {
-        private  int value;
+        private int value;
 
         public HexNumber(decimal value)
         {
             this.value = Convert.ToInt32(value);
             TempValue = Convert.ToString(this.value, 16);
         }
+
         public HexNumber(string value)
         {
             this.value = Convert.ToInt32(value, 16);
@@ -36,8 +37,6 @@
             IsLocked = true;
             value = value = Convert.ToInt32(TempValue, 16);
         }
-
-      
 
         public override decimal ToDecimal()
         {

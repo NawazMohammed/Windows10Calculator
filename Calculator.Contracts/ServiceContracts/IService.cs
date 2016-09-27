@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Calculator.Contracts.ServiceContracts
 {
+    using Calculator.Models.Commands;
     using Calculator.Models.Expressions;
 
     public interface IService

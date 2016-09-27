@@ -1,7 +1,6 @@
 ﻿namespace Calculator.UI.Tests
 {
     using Calculator.Contracts;
-    using Calculator.Models;
     using Calculator.Models.Commands;
     using Calculator.Models.Operators;
     using Calculator.UI.ViewModels;

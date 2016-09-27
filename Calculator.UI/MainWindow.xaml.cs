@@ -2,12 +2,12 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-
-using Calculator.Models;
 using System.Windows.Controls;
 
 namespace Calculator.UI
 {
+    using Calculator.Models.Commands;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>

@@ -108,6 +108,4 @@
         public char Name => 'F';
         public int Value => 15;
     }
-
-
 }

@@ -9,6 +9,5 @@
             T enumVal = (T)Enum.Parse(typeof(T), o.ToString());
             return enumVal;
         }
-
     }
 }
