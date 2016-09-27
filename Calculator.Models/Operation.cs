@@ -29,16 +29,11 @@ namespace Calculator.Models
             return str;
         }
 
-        public INumber Execute(Func<decimal,INumber> convertToNumberFunc)
+        public decimal Execute() 
         {
             RhsNumber.Lock();
 
-            var result = Operator.Execute(LhsNumber.ToDecimal(), RhsNumber.ToDecimal());
-
-            return convertToNumberFunc(result);
+            return Operator.Execute(LhsNumber.ToDecimal(), RhsNumber.ToDecimal());
         }
-
-      
     }
-
 }

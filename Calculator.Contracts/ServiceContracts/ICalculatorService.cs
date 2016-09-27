@@ -5,15 +5,16 @@ namespace Calculator.Contracts
 {
     using Calculator.Models.Commands;
     using Calculator.Models.Expressions;
+    using Calculator.Models.Numbers;
     using Calculator.Models.Operators;
 
     public interface ICalculatorService
     {
         Mode CurrentMode { get; set; }
 
-        List<Expression> Expressions { get; }
+        List<Expression<INumber>> Expressions { get; }
 
-        Expression Expression { get; }
+        Expression<INumber> Expression { get; }
 
         void OnNumericCommand(INumericCommand command);
 

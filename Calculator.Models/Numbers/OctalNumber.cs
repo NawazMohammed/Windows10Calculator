@@ -38,6 +38,12 @@ namespace Calculator.Models.Numbers
             value = value = Convert.ToInt32(TempValue, 8);
         }
 
+        public override void SetValue(decimal val)
+        {
+             value = Convert.ToInt32(val);
+            TempValue = Convert.ToString(value, 8);
+        }
+
         public override decimal ToDecimal()
         {
             return Convert.ToDecimal(value);

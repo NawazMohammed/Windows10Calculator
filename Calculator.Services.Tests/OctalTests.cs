@@ -9,20 +9,21 @@ using NUnit.Framework;
 namespace Calculator.Services.Tests
 {
     using Calculator.Models.Commands;
+    using Calculator.Models.Numbers;
     using Calculator.Models.Operators;
 
     [TestFixture]
     public class GivenACalculatorServiceWithAOctalExpression
     {
         private ICalculatorService calculatorService;
-        private IExpressionFactory expressionFactory;
+        private INumberFactory numberFactory;
 
         [SetUp]
         public void SetUp()
         {
             //Arrange
-            expressionFactory = new ExpressionFactory();
-            calculatorService = new CalculatorService(expressionFactory) { CurrentMode = Mode.OCT };
+            numberFactory = new NumberFactory();
+            calculatorService = new CalculatorService(numberFactory) { CurrentMode = Mode.OCT };
         }
 
         [Test]
@@ -35,7 +36,7 @@ namespace Calculator.Services.Tests
             Assert.That(calculatorService.Expression.Display, Is.EqualTo("0"));
             Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo(""));
             Assert.That(calculatorService.CurrentMode, Is.EqualTo(Mode.OCT));
-            Assert.That(calculatorService.Expression.GetType(), Is.EqualTo(typeof(OctalExpression)));
+            Assert.That(calculatorService.Expression.GetType(), Is.EqualTo(typeof(OctalNumber)));
         }
 
         [Test]
@@ -190,7 +191,7 @@ namespace Calculator.Services.Tests
             //Assert
             Assert.That(calculatorService.Expression.Display, Is.EqualTo("12"));
             Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo(""));
-            Assert.That(calculatorService.Expression.GetType(), Is.EqualTo(typeof(OctalExpression)));
+            Assert.That(calculatorService.Expression.GetType(), Is.EqualTo(typeof(OctalNumber)));
         }
 
         [Test]
@@ -259,7 +260,7 @@ namespace Calculator.Services.Tests
 
             //Assert
             Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo(""));
-            Assert.That(calculatorService.Expression.GetType(), Is.EqualTo(typeof(OctalExpression)));
+            Assert.That(calculatorService.Expression.GetType(), Is.EqualTo(typeof(OctalNumber)));
         }
 
         [Test]
@@ -277,7 +278,7 @@ namespace Calculator.Services.Tests
             //Assert
             Assert.That(calculatorService.Expression.Display, Is.EqualTo("0"));
             Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo(""));
-            Assert.That(calculatorService.Expression.GetType(), Is.EqualTo(typeof(OctalExpression)));
+            Assert.That(calculatorService.Expression.GetType(), Is.EqualTo(typeof(OctalNumber)));
         }
     }
 }

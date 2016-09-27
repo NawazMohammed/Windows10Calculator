@@ -53,6 +53,7 @@
     <Compile Include="Expressions\ExpressionBase.cs" />
     <Compile Include="Expressions\HexExpression.cs" />
     <Compile Include="Expressions\OctalExpression.cs" />
+    <Compile Include="Numbers\NumberFactory.cs" />
     <Compile Include="Operation.cs" />
     <Compile Include="Numbers\HexNumber.cs" />
     <Compile Include="Mode.cs" />

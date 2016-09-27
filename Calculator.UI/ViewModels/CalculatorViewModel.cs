@@ -10,6 +10,7 @@ namespace Calculator.UI.ViewModels
 {
     using Calculator.Models.Commands;
     using Calculator.Models.Expressions;
+    using Calculator.Models.Numbers;
 
     public class CalculatorViewModel: INotifyPropertyChanged
     {
@@ -95,7 +96,7 @@ namespace Calculator.UI.ViewModels
 
        // private List<Expression> _expressions = new List<Expression>() { new Expression() { _display = "8", _items = new List<ExpressionItem> { new ExpressionItem() {Type = ExpressionItemType.NUMBER, ItemString ="8",NumberValue = 8 }, new ExpressionItem() { Type=ExpressionItemType.OPERATOR,OperatorValue = Command.EQUAL} } } };
 
-        public ObservableCollection<Expression> Expressions { get; } = new ObservableCollection<Expression>();
+        public ObservableCollection<Expression<INumber>> Expressions { get; } = new ObservableCollection<Expression<INumber>>();
 
         public string Expression
         {

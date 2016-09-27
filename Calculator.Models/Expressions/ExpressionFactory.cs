@@ -6,23 +6,23 @@ namespace Calculator.Models.Expressions
 
     public interface IExpressionFactory
     {
-        Expression GetExpression(Mode mode, int id, string defaultNumber, string defaultValue);
+        Expression<NumberBase> GetExpression(Mode mode, int id, string defaultNumber, string defaultValue);
     }
 
     public class ExpressionFactory : IExpressionFactory
     {
-        public Expression GetExpression(Mode mode, int id, string defaultNumber, string defaultValue)
+        public Expression<NumberBase> GetExpression(Mode mode, int id, string defaultNumber, string defaultValue)
         {
             switch (mode)
             {
                 case Mode.DEC:
-                    return new DecimalExpression(id, new DecimalNumber(defaultNumber), new DecimalNumber(defaultValue));
+                    return new Expression<NumberBase>(id, new DecimalNumber(defaultNumber), new DecimalNumber(defaultValue));
                 case Mode.HEX:
-                    return new HexExpression(id, new HexNumber(defaultNumber), new HexNumber(defaultValue));
+                    return new Expression<NumberBase>(id, new HexNumber(defaultNumber), new HexNumber(defaultValue));
                 case Mode.OCT:
-                    return new OctalExpression(id, new OctalNumber(defaultNumber), new OctalNumber(defaultValue));
+                    return new Expression<NumberBase>(id, new OctalNumber(defaultNumber), new OctalNumber(defaultValue));
                 case Mode.BIN:
-                    return new BinaryExpression(id, new BinaryNumber(defaultNumber), new BinaryNumber(defaultValue));
+                    return new Expression<NumberBase>(id, new BinaryNumber(defaultNumber), new BinaryNumber(defaultValue));
                 default:
                     throw new ArgumentOutOfRangeException();
             }

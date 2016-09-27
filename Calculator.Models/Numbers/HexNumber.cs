@@ -38,6 +38,12 @@
             value = value = Convert.ToInt32(TempValue, 16);
         }
 
+        public override void SetValue(decimal val)
+        {
+           value = Convert.ToInt32(val);
+            TempValue = Convert.ToString(value, 16);
+        }
+
         public override decimal ToDecimal()
         {
             return Convert.ToDecimal(value);

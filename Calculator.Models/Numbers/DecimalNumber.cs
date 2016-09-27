@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class DecimalNumber:NumberBase
+    public class DecimalNumber : NumberBase
     {
         private decimal value;
 
@@ -38,6 +38,12 @@
         {
             IsLocked = true;
             value = Convert.ToDecimal(TempValue);
+        }
+
+        public override void SetValue(decimal val)
+        {
+            value = val;
+            TempValue = value.ToString("G29");
         }
 
         public override decimal ToDecimal()

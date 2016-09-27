@@ -29,7 +29,6 @@
                 TempValue = "";
 
             TempValue = TempValue + character;
-
         }
 
         public override void Lock()
@@ -38,7 +37,13 @@
             value = value = Convert.ToInt32(TempValue, 2);
         }
 
-        public override  decimal ToDecimal()
+        public override void SetValue(decimal val)
+        {
+            value = Convert.ToInt32(val);
+            TempValue = Convert.ToString(value, 2);
+        }
+
+        public override decimal ToDecimal()
         {
             return Convert.ToDecimal(value);
         }
@@ -49,10 +54,9 @@
         }
     } 
 
-    
     public interface INumber
     {
-         decimal ToDecimal();
+        decimal ToDecimal();
         string ToDisplayString();
 
         //void SetValue(decimal val);
@@ -64,6 +68,8 @@
         void DeleteLastCharacter();
 
         void Lock();
+
+        void SetValue(decimal val);
     }
 
 }

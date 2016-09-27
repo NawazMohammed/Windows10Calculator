@@ -8,6 +8,7 @@ using NUnit.Framework;
 namespace Calculator.Services.Tests
 {
     using Calculator.Models.Commands;
+    using Calculator.Models.Numbers;
     using Calculator.Models.Operators;
 
     [TestFixture]
@@ -15,14 +16,14 @@ namespace Calculator.Services.Tests
     {
         private ICalculatorService calculatorService;
 
-        private IExpressionFactory expressionFactory;
+        private INumberFactory numberFactory;
 
         [SetUp]
         public void SetUp()
         {
             //Arrange
-            expressionFactory = new ExpressionFactory();
-            calculatorService = new CalculatorService(expressionFactory) { CurrentMode = Mode.BIN };
+            numberFactory = new NumberFactory();
+            calculatorService = new CalculatorService(numberFactory) { CurrentMode = Mode.BIN };
         }
 
         [Test]
@@ -35,7 +36,7 @@ namespace Calculator.Services.Tests
             Assert.That(calculatorService.Expression.Display, Is.EqualTo("0"));
             Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo(""));
             Assert.That(calculatorService.CurrentMode, Is.EqualTo(Mode.BIN));
-            Assert.That(calculatorService.Expression.GetType(), Is.EqualTo(typeof(BinaryExpression)));
+            Assert.That(calculatorService.Expression.GetType(), Is.EqualTo(typeof(BinaryNumber)));
         }
 
         [Test]
@@ -193,7 +194,7 @@ namespace Calculator.Services.Tests
             //Assert
             Assert.That(calculatorService.Expression.Display, Is.EqualTo("1001"));
             Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo(""));
-            Assert.That(calculatorService.Expression.GetType(), Is.EqualTo(typeof(BinaryExpression)));
+            Assert.That(calculatorService.Expression.Type, Is.EqualTo(typeof(BinaryNumber)));
         }
 
         [Test]
@@ -263,7 +264,7 @@ namespace Calculator.Services.Tests
 
             //Assert
             Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo(""));
-            Assert.That(calculatorService.Expression.GetType(), Is.EqualTo(typeof(BinaryExpression)));
+            Assert.That(calculatorService.Expression.GetType(), Is.EqualTo(typeof(BinaryNumber)));
         }
 
         [Test]
@@ -281,7 +282,7 @@ namespace Calculator.Services.Tests
             //Assert
             Assert.That(calculatorService.Expression.Display, Is.EqualTo("0"));
             Assert.That(calculatorService.Expression.ExpressionString, Is.EqualTo(""));
-            Assert.That(calculatorService.Expression.GetType(), Is.EqualTo(typeof(BinaryExpression)));
+            Assert.That(calculatorService.Expression.GetType(), Is.EqualTo(typeof(BinaryNumber)));
         }
     }
 }

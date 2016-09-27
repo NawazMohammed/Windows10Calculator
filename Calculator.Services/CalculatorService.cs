@@ -1,29 +1,30 @@
-﻿using Calculator.Contracts;
+﻿using System;
 using System.Collections.Generic;
+
+using Calculator.Contracts;
 using Calculator.Models;
+using Calculator.Models.Commands;
 using Calculator.Models.Expressions;
+using Calculator.Models.Operators;
 
 namespace Calculator.Services
 {
-    using System;
-
-    using Calculator.Models.Commands;
-    using Calculator.Models.Operators;
+    using Calculator.Models.Numbers;
 
     public class CalculatorService : ICalculatorService
     {
-        private readonly IExpressionFactory expressionFactory;
+        private readonly INumberFactory numberFactory;
 
         private readonly ICommandFactory commandFactory;
 
         private Mode currrentMode;
         private int expressionId;
-        public CalculatorService(IExpressionFactory expressionFactory)
+        public CalculatorService(INumberFactory numberFactory)
         {
-            this.expressionFactory = expressionFactory;
+            this.numberFactory = numberFactory;
             currrentMode = Mode.DEC;
-            Expression = expressionFactory.GetExpression(Mode.DEC,ExpressionId, "0", "0");
-            Expressions = new List<Expression>();
+            Expression = GetExpression("0", "0");
+            Expressions = new List<Expression<INumber>>();
         }
 
         public int ExpressionId
@@ -34,12 +35,14 @@ namespace Calculator.Services
                 return expressionId;
             }
         }
+
         public Mode CurrentMode
         {
             get
             {
                 return currrentMode;
             }
+
             set
             {
                 currrentMode = value;
@@ -49,16 +52,20 @@ namespace Calculator.Services
 
         private void ResetExpression(string defaultNumber, string defaultValue)
         {
-            Expression = expressionFactory.GetExpression(
-                currrentMode,
-                ExpressionId,
-                defaultNumber,
-                defaultValue);
+            Expression = GetExpression(defaultNumber, defaultValue);
         }
 
-        public List<Expression> Expressions { get; }
+        private Expression<INumber> GetExpression(string defaultNumber, string defaultValue)
+        {
+            return new Expression<INumber>(
+                ExpressionId,
+                numberFactory.GetNumber(currrentMode, defaultNumber),
+                numberFactory.GetNumber(currrentMode, defaultValue));
+        }
 
-        public Expression Expression { get; private set; }
+        public List<Expression<INumber>> Expressions { get; }
+
+        public Expression<INumber> Expression { get; private set; }
 
         public string GetResultInFormat(Mode mode)
         {
@@ -84,7 +91,7 @@ namespace Calculator.Services
 
         public void OnOperatorCommand(IOperator opr)
         {
-            Expression.ExecutePreviousOperation();
+            Expression.Execute();
             Expression.AddOrUpdateOperator(opr);
         }
 
@@ -96,7 +103,7 @@ namespace Calculator.Services
                     Expression.DeleteLastCharacter();
                     break;
                 case ControlCommand.EQUAL:
-                    Expression.ExecutePreviousOperation();
+                    Expression.Execute();
                     Expression.Complete();
                     Expressions.Add(Expression);
                     ResetExpression("0", Expression.Display);

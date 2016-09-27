@@ -12,6 +12,9 @@
         public abstract void AddCharacter(char car);
         public abstract void Lock();
 
+        public abstract void SetValue(decimal val);
+  
+
         public void DeleteLastCharacter()
         {
             if (TempValue == null)
